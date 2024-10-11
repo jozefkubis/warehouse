@@ -1,5 +1,5 @@
 function WarehouseStore() {
-  return <div>Store</div>
+  return <div>Items inside the Store</div>
 }
 
 export default WarehouseStore

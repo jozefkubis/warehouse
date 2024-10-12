@@ -7,8 +7,8 @@ export function useWarehouseStore() {
     data: warehouseStoreData,
     error,
   } = useQuery({
-    queryKey: ["Warehouse Store"],
     queryFn: getWarehouseStore,
+    queryKey: ["Warehouse Store"],
   })
 
   return { isLoading, warehouseStoreData, error }

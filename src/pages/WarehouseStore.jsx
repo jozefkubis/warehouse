@@ -6,7 +6,7 @@ function WarehouseStore() {
   return (
     <>
       <Row type="horizontal">
-        <Heading as="h1">Store Items</Heading>
+        <Heading as="h1">Store</Heading>
       </Row>
 
       <Row>

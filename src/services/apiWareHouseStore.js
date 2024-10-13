@@ -10,3 +10,17 @@ export async function getWarehouseStore() {
 
   return data
 }
+
+export async function deleteWarehouseStoreItem(id) {
+  const { data, error } = await supabase
+    .from("Warehouse Store")
+    .delete()
+    .eq("id", id)
+
+  if (error) {
+    console.error(error)
+    throw new Error("Store could not be deleted")
+  }
+
+  return data
+}

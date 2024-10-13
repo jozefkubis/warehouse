@@ -1,6 +1,6 @@
 import Heading from "../ui/Heading"
 import Row from "../ui/Row"
-import WarehouseStoreTable from "../features/warehouseStore/WarehouseStoreTable"
+import WarehouseStoreTable from "../features/warehoueStore/WarehouseStoreTable"
 
 function WarehouseStore() {
   return (

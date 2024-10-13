@@ -1,5 +1,6 @@
 import styled from "styled-components"
 import { formatCurrency } from "../../utils/helpers"
+import { useDeleteStoreItem } from "./useDeleteStoreItem"
 
 const TableRow = styled.div`
   display: grid;
@@ -52,14 +53,16 @@ const Span = styled.span`
 `
 
 function WarehouseStoreRow({ warehouseStore }) {
+  const { isDeleting, deleteStoreItem } = useDeleteStoreItem()
+
   const {
-    // id: storeId,
+    id: storeId,
     code,
     name,
     NoOfPcs,
     regularPrice,
     discount,
-    description,
+    // description,
     image,
   } = warehouseStore
 
@@ -79,7 +82,12 @@ function WarehouseStoreRow({ warehouseStore }) {
         {/* <Div>{description}</Div> */}
 
         <Div>
-          <button>Delete</button>
+          <button
+            onClick={() => deleteStoreItem(storeId)}
+            disabled={isDeleting}
+          >
+            Delete
+          </button>
         </Div>
       </TableRow>
     </>

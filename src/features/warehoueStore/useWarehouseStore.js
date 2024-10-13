@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query"
-import { getWarehouseStore } from "../../services/apiWareHouseStore"
+import { getWarehouseStore } from "../../services/apiWarehouseStore"
 
 export function useWarehouseStore() {
   const {
@@ -7,8 +7,8 @@ export function useWarehouseStore() {
     data: warehouseStoreData,
     error,
   } = useQuery({
-    queryFn: getWarehouseStore,
     queryKey: ["Warehouse Store"],
+    queryFn: getWarehouseStore,
   })
 
   return { isLoading, warehouseStoreData, error }

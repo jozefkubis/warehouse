@@ -1,5 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { deleteWarehouseStoreItem as deleteWarehouseStoreItemApi } from "../../services/apiWarehouseStore"
+import toast from "react-hot-toast"
 
 export function useDeleteStoreItem() {
   const queryClient = useQueryClient()
@@ -8,10 +9,10 @@ export function useDeleteStoreItem() {
     // mutationFn(id): deleteWarehouseStoreItemApi(id),
     mutationFn: deleteWarehouseStoreItemApi,
     onSuccess: () => {
-      alert("Store item deleted!")
+      toast.success("Store item deleted!")
       queryClient.invalidateQueries({ queryKey: ["Warehouse Store"] })
     },
-    onError: (err) => alert(err.message),
+    onError: (err) => toast.error(err.message),
   })
 
   return { isDeleting, deleteStoreItem }

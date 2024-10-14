@@ -18,7 +18,7 @@ function CreateStoreForm() {
   const { isInserting, insertStoreItem } = useInsertStoreItem()
 
   function onSubmit(data) {
-    insertStoreItem(data)
+    insertStoreItem({ ...data, image: data.image[0] })
     reset()
   }
 
@@ -94,7 +94,6 @@ function CreateStoreForm() {
         <FileInput
           id="image"
           accept="image/*"
-          type="file"
           {...register("image", {
             required: "This field is required",
           })}

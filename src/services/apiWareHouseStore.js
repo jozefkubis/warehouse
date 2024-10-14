@@ -1,4 +1,4 @@
-import supabase from "./supabase"
+import supabase, { supabaseUrl } from "./supabase"
 
 export async function getWarehouseStore() {
   const { data, error } = await supabase.from("Warehouse Store").select("*")
@@ -12,14 +12,38 @@ export async function getWarehouseStore() {
 }
 
 export async function insertStoreItem(newItem) {
+  const hasImagePath = newItem.image?.startsWith?.(supabaseUrl)
+
+  const imageName = `${Math.random()}-${newItem.image.name}`.replaceAll("/", "")
+
+  const imagePath = hasImagePath
+    ? newItem.image
+    : `${supabaseUrl}/storage/v1/object/public/order-images/${imageName}`
+
+  // Insert item
   const { data, error } = await supabase
     .from("Warehouse Store")
-    .insert([newItem])
+    .insert([{ ...newItem, image: imagePath }])
     .select()
 
   if (error) {
     console.error(error)
     throw new Error("Item could not be loaded")
+  }
+
+  // Upload image
+  const { error: storageError } = await supabase.storage
+    .from("order-images")
+    .upload(imageName, newItem.image)
+
+  // Delete item if image upload failed
+  if (storageError) {
+    console.error(storageError)
+    await supabase.from("Warehouse Store").delete().eq("id", data.id)
+    console.error(storageError)
+    throw new Error(
+      "Item image could not be uploaded and the item was not inserted"
+    )
   }
 
   return data

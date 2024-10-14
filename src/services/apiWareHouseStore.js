@@ -12,10 +12,13 @@ export async function getWarehouseStore() {
 }
 
 export async function insertStoreItem(newItem) {
+  // Check if image exists
   const hasImagePath = newItem.image?.startsWith?.(supabaseUrl)
 
+  // Generate image name
   const imageName = `${Math.random()}-${newItem.image.name}`.replaceAll("/", "")
 
+  // Set image path
   const imagePath = hasImagePath
     ? newItem.image
     : `${supabaseUrl}/storage/v1/object/public/order-images/${imageName}`

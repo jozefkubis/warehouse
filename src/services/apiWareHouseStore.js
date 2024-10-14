@@ -11,6 +11,20 @@ export async function getWarehouseStore() {
   return data
 }
 
+export async function insertStoreItem(newItem) {
+  const { data, error } = await supabase
+    .from("Warehouse Store")
+    .insert([newItem])
+    .select()
+
+  if (error) {
+    console.error(error)
+    throw new Error("Item could not be loaded")
+  }
+
+  return data
+}
+
 export async function deleteWarehouseStoreItem(id) {
   const { data, error } = await supabase
     .from("Warehouse Store")

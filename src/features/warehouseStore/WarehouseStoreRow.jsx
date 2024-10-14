@@ -1,6 +1,7 @@
 import styled from "styled-components"
 import { formatCurrency } from "../../utils/helpers"
 import { useDeleteStoreItem } from "./useDeleteStoreItem"
+import { useInsertStoreItem } from "./useInsertStoreItem"
 
 const TableRow = styled.div`
   display: grid;

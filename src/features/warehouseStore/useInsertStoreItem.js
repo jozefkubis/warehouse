@@ -6,7 +6,7 @@ export function useInsertStoreItem() {
   const queryClient = useQueryClient()
 
   const { isLoading: isInserting, mutate: insertStoreItem } = useMutation({
-    mutationKey: ["insertStoreItem"], // Toto pridaj
+    mutationKey: ["insertStoreItem"],
     mutationFn: insertStoreItemApi,
     onSuccess: () => {
       toast.success("Store item added!")

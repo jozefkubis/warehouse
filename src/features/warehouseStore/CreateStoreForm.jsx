@@ -6,20 +6,39 @@ import Form from "../../ui/Form"
 import { useForm } from "react-hook-form"
 import { useInsertStoreItem } from "./useInsertStoreItem"
 import FormRow from "../../ui/FormRow"
+import { useUpdateStoreItem } from "./useUpdateStoreItem"
 
-function CreateStoreForm() {
+function CreateStoreForm({ itemToEdit = {} }) {
+  const { id: editId, ...editValues } = itemToEdit
+  const isEditSession = Boolean(editId)
+
   const {
     register,
     handleSubmit,
     reset,
     getValues,
     formState: { errors },
-  } = useForm()
+  } = useForm({
+    defaultValues: isEditSession ? editValues : {},
+  })
+
   const { isInserting, insertStoreItem } = useInsertStoreItem()
+  const { isUpdating, updateStoreItem } = useUpdateStoreItem()
+  const isWorking = isInserting || isUpdating
 
   function onSubmit(data) {
-    insertStoreItem({ ...data, image: data.image[0] })
-    reset()
+    const image = typeof data.image === "string" ? data.image : data.image[0]
+
+    if (isEditSession)
+      updateStoreItem(
+        { newItemData: { ...data, image }, id: editId },
+        { onSuccess: (data) => reset() }
+      )
+    else
+      insertStoreItem(
+        { ...data, image: image },
+        { onSuccess: (data) => reset() }
+      )
   }
 
   function onError(errors) {
@@ -32,6 +51,7 @@ function CreateStoreForm() {
         <Input
           type="number"
           id="code"
+          disabled={isWorking}
           {...register("code", {
             required: "This field is required",
           })}
@@ -42,16 +62,18 @@ function CreateStoreForm() {
         <Input
           type="text"
           id="name"
+          disabled={isWorking}
           {...register("name", {
             required: "This field is required",
           })}
         />
       </FormRow>
 
-      <FormRow label="No. of pcs" error={errors?.NoOfPcs?.message}>
+      <FormRow label="No. of pieces" error={errors?.NoOfPcs?.message}>
         <Input
           type="number"
           id="NoOfPcs"
+          disabled={isWorking}
           {...register("NoOfPcs", { required: "This field is required" })}
         />
       </FormRow>
@@ -60,6 +82,7 @@ function CreateStoreForm() {
         <Input
           type="number"
           id="regularPrice"
+          disabled={isWorking}
           {...register("regularPrice", {
             required: "This field is required",
           })}
@@ -70,6 +93,7 @@ function CreateStoreForm() {
         <Input
           type="number"
           id="discount"
+          disabled={isWorking}
           {...register("discount", {
             validate: (value) =>
               value <= getValues().regularPrice ||
@@ -83,6 +107,7 @@ function CreateStoreForm() {
         <Textarea
           type="text"
           id="description"
+          disabled={isWorking}
           {...register("description", {
             required: "This field is required",
           })}
@@ -93,9 +118,10 @@ function CreateStoreForm() {
       <FormRow label>
         <FileInput
           id="image"
+          disabled={isWorking}
           accept="image/*"
           {...register("image", {
-            required: "This field is required",
+            required: isEditSession ? false : "This field is required",
           })}
         />
       </FormRow>
@@ -105,8 +131,8 @@ function CreateStoreForm() {
         <Button variation="secondary" type="reset">
           Cancel
         </Button>
-        <Button disabled={isInserting} type="submit">
-          Edit item
+        <Button disabled={isWorking} type="submit">
+          {isEditSession ? "Save changes" : "Create new item"}
         </Button>
       </FormRow>
     </Form>

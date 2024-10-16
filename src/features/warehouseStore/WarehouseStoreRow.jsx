@@ -1,7 +1,9 @@
 import styled from "styled-components"
 import { formatCurrency } from "../../utils/helpers"
 import { useDeleteStoreItem } from "./useDeleteStoreItem"
-import { useInsertStoreItem } from "./useInsertStoreItem"
+import { useState } from "react"
+import CreateStoreForm from "./CreateStoreForm"
+// import { useInsertStoreItem } from "./useInsertStoreItem"
 
 const TableRow = styled.div`
   display: grid;
@@ -55,6 +57,7 @@ const Span = styled.span`
 
 function WarehouseStoreRow({ warehouseStore }) {
   const { isDeleting, deleteStoreItem } = useDeleteStoreItem()
+  const [showForm, setShowForm] = useState(false)
 
   const {
     id: storeId,
@@ -83,6 +86,7 @@ function WarehouseStoreRow({ warehouseStore }) {
         {/* <Div>{description}</Div> */}
 
         <Div>
+          <button onClick={() => setShowForm((show) => !show)}>Edit</button>
           <button
             onClick={() => deleteStoreItem(storeId)}
             disabled={isDeleting}
@@ -91,6 +95,7 @@ function WarehouseStoreRow({ warehouseStore }) {
           </button>
         </Div>
       </TableRow>
+      {showForm && <CreateStoreForm itemToEdit={warehouseStore} />}
     </>
   )
 }

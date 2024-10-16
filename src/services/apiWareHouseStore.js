@@ -1,5 +1,7 @@
 import supabase, { supabaseUrl } from "./supabase"
 
+// MARK: GET ALL STORE ITEMS.................................................
+
 export async function getWarehouseStore() {
   const { data, error } = await supabase.from("Warehouse Store").select("*")
 
@@ -11,46 +13,54 @@ export async function getWarehouseStore() {
   return data
 }
 
-export async function insertStoreItem(newItem) {
-  // Check if image exists
-  const hasImagePath = newItem.image?.startsWith?.(supabaseUrl)
+// MARK: INSERT NEW ITEM WITH IMAGE..........................................
 
-  // Generate image name
-  const imageName = `${Math.random()}-${newItem.image.name}`.replaceAll("/", "")
+export async function insertEditStoreItem(newItem, id) {
+  let imagePath = newItem.image
 
-  // Set image path
-  const imagePath = hasImagePath
-    ? newItem.image
-    : `${supabaseUrl}/storage/v1/object/public/order-images/${imageName}`
+  // Nahrávaj obrázok iba v prípade, že ide o nový súbor
+  if (newItem.image instanceof File) {
+    const imageName = `${Math.random()}-${newItem.image.name}`.replaceAll(
+      "/",
+      ""
+    )
 
-  // Insert item
-  const { data, error } = await supabase
-    .from("Warehouse Store")
-    .insert([{ ...newItem, image: imagePath }])
-    .select()
+    imagePath = `${supabaseUrl}/storage/v1/object/public/order-images/${imageName}`
+
+    const { error: storageError } = await supabase.storage
+      .from("order-images")
+      .upload(imageName, newItem.image)
+
+    if (storageError) {
+      console.error(storageError)
+      throw new Error("Image could not be uploaded!")
+    }
+  }
+
+  // Vlož alebo aktualizuj položku až po úspešnom nahraní obrázka alebo ak nie je nový obrázok
+  let query = supabase.from("Warehouse Store")
+
+  // A) vlož
+  if (!id) {
+    query = query.insert([{ ...newItem, image: imagePath }])
+  }
+
+  // B) uprav
+  if (id) {
+    query = query.update({ ...newItem, image: imagePath }).eq("id", id)
+  }
+
+  const { data, error } = await query.select().single()
 
   if (error) {
     console.error(error)
-    throw new Error("Item could not be loaded")
-  }
-
-  // Upload image
-  const { error: storageError } = await supabase.storage
-    .from("order-images")
-    .upload(imageName, newItem.image)
-
-  // Delete item if image upload failed
-  if (storageError) {
-    console.error(storageError)
-    await supabase.from("Warehouse Store").delete().eq("id", data.id)
-    console.error(storageError)
-    throw new Error(
-      "Item image could not be uploaded and the item was not inserted"
-    )
+    throw new Error("Item could not be saved")
   }
 
   return data
 }
+
+// MARK:DELETE STORE ITEM.............................................
 
 export async function deleteWarehouseStoreItem(id) {
   const { data, error } = await supabase

@@ -1,7 +1,7 @@
 import styled from "styled-components"
 import Spinner from "../../ui/Spinner"
-import { useWarehouseStore } from "./useWarehouseStore"
 import WarehouseStoreRow from "./WarehouseStoreRow"
+import { useWarehouseStore } from "./useWarehouseStore"
 
 const Table = styled.div`
   border: 1px solid var(--color-grey-200);

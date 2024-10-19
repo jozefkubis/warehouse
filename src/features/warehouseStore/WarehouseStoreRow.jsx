@@ -3,7 +3,8 @@ import { formatCurrency } from "../../utils/helpers"
 import { useDeleteStoreItem } from "./useDeleteStoreItem"
 import { useState } from "react"
 import CreateStoreForm from "./CreateStoreForm"
-// import { useInsertStoreItem } from "./useInsertStoreItem"
+import { useInsertStoreItem } from "./useInsertStoreItem"
+import { HiPencil, HiSquare2Stack, HiTrash } from "react-icons/hi2"
 
 const TableRow = styled.div`
   display: grid;
@@ -49,6 +50,8 @@ const Discount = styled.div`
 
 const Div = styled.div`
   margin: 0 auto;
+  gap: 1rem;
+  display: flex;
 `
 
 const Span = styled.span`
@@ -56,8 +59,9 @@ const Span = styled.span`
 `
 
 function WarehouseStoreRow({ warehouseStore }) {
-  const { isDeleting, deleteStoreItem } = useDeleteStoreItem()
   const [showForm, setShowForm] = useState(false)
+  const { isDeleting, deleteStoreItem } = useDeleteStoreItem()
+  const { isInserting, insertStoreItem } = useInsertStoreItem()
 
   const {
     id: storeId,
@@ -66,9 +70,21 @@ function WarehouseStoreRow({ warehouseStore }) {
     NoOfPcs,
     regularPrice,
     discount,
-    // description,
+    description,
     image,
   } = warehouseStore
+
+  function handleDuplicate() {
+    insertStoreItem({
+      code,
+      name: `Copy of ${name}`,
+      NoOfPcs,
+      regularPrice,
+      discount,
+      description,
+      image,
+    })
+  }
 
   return (
     <>
@@ -86,12 +102,17 @@ function WarehouseStoreRow({ warehouseStore }) {
         {/* <Div>{description}</Div> */}
 
         <Div>
-          <button onClick={() => setShowForm((show) => !show)}>Edit</button>
+          <button onClick={handleDuplicate} disabled={isInserting}>
+            <HiSquare2Stack />
+          </button>
+          <button onClick={() => setShowForm((show) => !show)}>
+            <HiPencil />
+          </button>
           <button
             onClick={() => deleteStoreItem(storeId)}
             disabled={isDeleting}
           >
-            Delete
+            <HiTrash />
           </button>
         </Div>
       </TableRow>

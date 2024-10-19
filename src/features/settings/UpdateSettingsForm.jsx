@@ -26,7 +26,7 @@ function UpdateSettingsForm() {
       <FormRow label="Minimum pieces to order">
         <Input
           type="number"
-          id="minPcsToOrder"
+          id="min-order"
           defaultValue={minPcsToOrder}
           // disabled={isUpdating}
           // onBlur={(e) => handleUpdate(e, "minPcsToOrder")}
@@ -36,7 +36,7 @@ function UpdateSettingsForm() {
       <FormRow label="Maximum pieces to order">
         <Input
           type="number"
-          id="maxPcsToOrder"
+          id="max-order"
           defaultValue={maxPcsToOrder}
           // disabled={isUpdating}
           // onBlur={(e) => handleUpdate(e, "maxPcsToOrder")}

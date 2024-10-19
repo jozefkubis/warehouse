@@ -3,23 +3,23 @@ import FormRow from "../../ui/FormRow"
 import Input from "../../ui/Input"
 import Spinner from "../../ui/Spinner"
 import { useSettings } from "./useSettings"
-// import { useUpdateSetting } from "./useUpdateSetting"
+import { useUpdateSetting } from "./useUpdateSetting"
 
 function UpdateSettingsForm() {
   const {
     isLoading,
     settings: { minPcsToOrder, maxPcsToOrder, shipping } = {},
   } = useSettings()
-  // const { isUpdating, updateSetting } = useUpdateSetting()
+  const { isUpdating, updateSetting } = useUpdateSetting()
 
   if (isLoading) return <Spinner />
 
-  // function handleUpdate(e, field) {
-  //   const { value } = e.target
+  function handleUpdate(e, field) {
+    const { value } = e.target
 
-  //   if (!value) return
-  //   updateSetting({ [field]: value })
-  // }
+    if (!value) return
+    updateSetting({ [field]: value })
+  }
 
   return (
     <Form>
@@ -28,8 +28,8 @@ function UpdateSettingsForm() {
           type="number"
           id="min-order"
           defaultValue={minPcsToOrder}
-          // disabled={isUpdating}
-          // onBlur={(e) => handleUpdate(e, "minPcsToOrder")}
+          disabled={isUpdating}
+          onBlur={(e) => handleUpdate(e, "minPcsToOrder")}
         />
       </FormRow>
 
@@ -38,8 +38,8 @@ function UpdateSettingsForm() {
           type="number"
           id="max-order"
           defaultValue={maxPcsToOrder}
-          // disabled={isUpdating}
-          // onBlur={(e) => handleUpdate(e, "maxPcsToOrder")}
+          disabled={isUpdating}
+          onBlur={(e) => handleUpdate(e, "maxPcsToOrder")}
         />
       </FormRow>
 
@@ -48,8 +48,8 @@ function UpdateSettingsForm() {
           type="number"
           id="shipping"
           defaultValue={shipping}
-          // disabled={isUpdating}
-          // onBlur={(e) => handleUpdate(e, "shipping")}
+          disabled={isUpdating}
+          onBlur={(e) => handleUpdate(e, "shipping")}
         />
       </FormRow>
     </Form>

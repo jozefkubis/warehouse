@@ -9,7 +9,7 @@ import { useForm } from "react-hook-form"
 import { useInsertStoreItem } from "./useInsertStoreItem"
 import { useUpdateStoreItem } from "./useUpdateStoreItem"
 
-function CreateStoreForm({ itemToEdit = {} }) {
+function CreateStoreForm({ itemToEdit = {}, onCloseModal }) {
   const { id: editId, ...editValues } = itemToEdit
   const isEditSession = Boolean(editId)
 
@@ -33,12 +33,22 @@ function CreateStoreForm({ itemToEdit = {} }) {
     if (isEditSession)
       updateStoreItem(
         { newItemData: { ...data, image }, id: editId },
-        { onSuccess: (data) => reset() }
+        {
+          onSuccess: (data) => {
+            reset()
+            onCloseModal()
+          },
+        }
       )
     else
       insertStoreItem(
         { ...data, image: image },
-        { onSuccess: (data) => reset() }
+        {
+          onSuccess: (data) => {
+            reset()
+            onCloseModal()
+          },
+        }
       )
   }
 
@@ -47,7 +57,10 @@ function CreateStoreForm({ itemToEdit = {} }) {
   }
 
   return (
-    <Form onSubmit={handleSubmit(onSubmit, onError)}>
+    <Form
+      onSubmit={handleSubmit(onSubmit, onError)}
+      type={onCloseModal ? "modal" : "regular"}
+    >
       <FormRow label="Code" error={errors?.code?.message}>
         <Input
           type="number"
@@ -129,7 +142,11 @@ function CreateStoreForm({ itemToEdit = {} }) {
 
       <FormRow>
         {/* type is an HTML attribute! */}
-        <Button variation="secondary" type="reset">
+        <Button
+          variation="secondary"
+          type="reset"
+          onClick={() => onCloseModal?.()}
+        >
           Cancel
         </Button>
         <Button disabled={isWorking} type="submit">

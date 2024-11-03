@@ -1,10 +1,11 @@
 import styled from "styled-components"
 import { formatCurrency } from "../../utils/helpers"
 import { useDeleteStoreItem } from "./useDeleteStoreItem"
-import { useState } from "react"
 import CreateStoreForm from "./CreateStoreForm"
 import { useInsertStoreItem } from "./useInsertStoreItem"
 import { HiPencil, HiSquare2Stack, HiTrash } from "react-icons/hi2"
+import Modal from "../../ui/Modal"
+import ConfirmDelete from "../../ui/ConfirmDelete"
 
 const TableRow = styled.div`
   display: grid;
@@ -50,8 +51,8 @@ const Discount = styled.div`
 
 const Div = styled.div`
   margin: 0 auto;
-  gap: 1rem;
-  display: flex;
+  /* gap: 1rem;
+  display: flex; */
 `
 
 const Span = styled.span`
@@ -59,7 +60,6 @@ const Span = styled.span`
 `
 
 function WarehouseStoreRow({ warehouseStore }) {
-  const [showForm, setShowForm] = useState(false)
   const { isDeleting, deleteStoreItem } = useDeleteStoreItem()
   const { isInserting, insertStoreItem } = useInsertStoreItem()
 
@@ -87,37 +87,48 @@ function WarehouseStoreRow({ warehouseStore }) {
   }
 
   return (
-    <>
-      <TableRow role="row">
-        <Img src={image} />
-        <StoreItem>{code}</StoreItem>
-        <Div>{name} </Div>
-        <Div>{NoOfPcs}</Div>
-        <Price>{formatCurrency(regularPrice)}</Price>
-        {discount ? (
-          <Discount>{formatCurrency(discount)}</Discount>
-        ) : (
-          <Span>&mdash;</Span>
-        )}
-        {/* <Div>{description}</Div> */}
+    <TableRow role="row">
+      <Img src={image} />
+      <StoreItem>{code}</StoreItem>
+      <Div>{name} </Div>
+      <Div>{NoOfPcs}</Div>
+      <Price>{formatCurrency(regularPrice)}</Price>
+      {discount ? (
+        <Discount>{formatCurrency(discount)}</Discount>
+      ) : (
+        <Span>&mdash;</Span>
+      )}
+      {/* <Div>{description}</Div> */}
 
-        <Div>
-          <button onClick={handleDuplicate} disabled={isInserting}>
-            <HiSquare2Stack />
-          </button>
-          <button onClick={() => setShowForm((show) => !show)}>
-            <HiPencil />
-          </button>
-          <button
-            onClick={() => deleteStoreItem(storeId)}
-            disabled={isDeleting}
-          >
-            <HiTrash />
-          </button>
-        </Div>
-      </TableRow>
-      {showForm && <CreateStoreForm itemToEdit={warehouseStore} />}
-    </>
+      <div>
+        <button onClick={handleDuplicate} disabled={isInserting}>
+          <HiSquare2Stack />
+        </button>
+
+        <Modal>
+          <Modal.Open opens="edit">
+            <button>
+              <HiPencil />
+            </button>
+          </Modal.Open>
+          <Modal.Window name="edit">
+            <CreateStoreForm itemToEdit={warehouseStore} />
+          </Modal.Window>
+          <Modal.Open opens="delete">
+            <button>
+              <HiTrash />
+            </button>
+          </Modal.Open>
+          <Modal.Window name="delete">
+            <ConfirmDelete
+              resourceName="items"
+              disabled={isDeleting}
+              onConfirm={() => deleteStoreItem(storeId)}
+            />
+          </Modal.Window>
+        </Modal>
+      </div>
+    </TableRow>
   )
 }
 

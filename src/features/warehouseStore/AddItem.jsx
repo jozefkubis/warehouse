@@ -4,14 +4,16 @@ import CreateStoreForm from "./CreateStoreForm"
 
 function AddItem() {
   return (
-    <Modal>
-      <Modal.Open opens="item-form">
-        <Button>Add new Item to Store</Button>
-      </Modal.Open>
-      <Modal.Window name="item-form">
-        <CreateStoreForm />
-      </Modal.Window>
-    </Modal>
+    <div>
+      <Modal>
+        <Modal.Open opens="item-form">
+          <Button>Add new Item to Store</Button>
+        </Modal.Open>
+        <Modal.Window name="item-form">
+          <CreateStoreForm />
+        </Modal.Window>
+      </Modal>
+    </div>
   )
 }
 

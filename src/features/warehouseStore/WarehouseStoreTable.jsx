@@ -39,12 +39,15 @@ function WarehouseStoreTable() {
         <Div></Div>
       </Table.Header>
 
-      {warehouseStoreData.map((warehouseStore) => (
-        <WarehouseStoreRow
-          key={warehouseStore.id}
-          warehouseStore={warehouseStore}
-        />
-      ))}
+      <Table.Body
+        data={warehouseStoreData}
+        render={(warehouseStore) => (
+          <WarehouseStoreRow
+            key={warehouseStore.id}
+            warehouseStore={warehouseStore}
+          />
+        )}
+      />
     </Table>
   )
 }

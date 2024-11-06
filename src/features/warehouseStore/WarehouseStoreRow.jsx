@@ -118,7 +118,7 @@ function WarehouseStoreRow({ warehouseStore }) {
               </Modal.Open>
             </Menus.List>
             <Modal.Window name="edit">
-              <CreateStoreForm cabinToEdit={warehouseStore} />
+              <CreateStoreForm itemToEdit={warehouseStore} />
             </Modal.Window>
 
             <Modal.Window name="delete">

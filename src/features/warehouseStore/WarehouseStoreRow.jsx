@@ -7,6 +7,7 @@ import { HiPencil, HiSquare2Stack, HiTrash } from "react-icons/hi2"
 import Modal from "../../ui/Modal"
 import ConfirmDelete from "../../ui/ConfirmDelete"
 import Table from "../../ui/Table"
+import Menus from "../../ui/Menus"
 
 // const TableRow = styled.div`
 //   display: grid;
@@ -102,31 +103,32 @@ function WarehouseStoreRow({ warehouseStore }) {
       {/* <Div>{description}</Div> */}
 
       <div>
-        <button onClick={handleDuplicate} disabled={isInserting}>
-          <HiSquare2Stack />
-        </button>
-
         <Modal>
-          <Modal.Open opens="edit">
-            <button>
-              <HiPencil />
-            </button>
-          </Modal.Open>
-          <Modal.Window name="edit">
-            <CreateStoreForm itemToEdit={warehouseStore} />
-          </Modal.Window>
-          <Modal.Open opens="delete">
-            <button>
-              <HiTrash />
-            </button>
-          </Modal.Open>
-          <Modal.Window name="delete">
-            <ConfirmDelete
-              resourceName="items"
-              disabled={isDeleting}
-              onConfirm={() => deleteStoreItem(storeId)}
-            />
-          </Modal.Window>
+          <Menus.Menu>
+            <Menus.Toggle id={storeId} />
+            <Menus.List id={storeId}>
+              <Menus.Button icon={<HiSquare2Stack />} onClick={handleDuplicate}>
+                Duplicate
+              </Menus.Button>
+              <Modal.Open opens="edit">
+                <Menus.Button icon={<HiPencil />}>Edit</Menus.Button>
+              </Modal.Open>
+              <Modal.Open opens="delete">
+                <Menus.Button icon={<HiTrash />}>Delete</Menus.Button>
+              </Modal.Open>
+            </Menus.List>
+            <Modal.Window name="edit">
+              <CreateStoreForm cabinToEdit={warehouseStore} />
+            </Modal.Window>
+
+            <Modal.Window name="delete">
+              <ConfirmDelete
+                resourceName="cabins"
+                onConfirm={() => deleteStoreItem(storeId)}
+                disabled={isDeleting}
+              />
+            </Modal.Window>
+          </Menus.Menu>
         </Modal>
       </div>
     </Table.Row>

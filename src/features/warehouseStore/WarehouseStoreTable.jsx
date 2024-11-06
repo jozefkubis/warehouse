@@ -3,6 +3,7 @@ import Spinner from "../../ui/Spinner"
 import WarehouseStoreRow from "./WarehouseStoreRow"
 import { useWarehouseStore } from "./useWarehouseStore"
 import Table from "../../ui/Table"
+import Menus from "../../ui/Menus"
 
 const TableHeader = styled.header`
   display: grid;
@@ -28,27 +29,28 @@ function WarehouseStoreTable() {
   if (isLoading) return <Spinner />
 
   return (
-    <Table columns="0.6fr 1.8fr 2.2fr 1fr 1fr 1fr 1fr">
-      <Table.Header role="row">
-        <Div></Div>
-        <Div>Code</Div>
-        <Div>Name</Div>
-        <Div>No. of pcs</Div>
-        <Div>Price</Div>
-        <Div>Discount</Div>
-        <Div></Div>
-      </Table.Header>
-
-      <Table.Body
-        data={warehouseStoreData}
-        render={(warehouseStore) => (
-          <WarehouseStoreRow
-            key={warehouseStore.id}
-            warehouseStore={warehouseStore}
-          />
-        )}
-      />
-    </Table>
+    <Menus>
+      <Table columns="0.6fr 1.8fr 2.2fr 1fr 1fr 1fr 1fr">
+        <Table.Header role="row">
+          <Div></Div>
+          <Div>Code</Div>
+          <Div>Name</Div>
+          <Div>No. of pcs</Div>
+          <Div>Price</Div>
+          <Div>Discount</Div>
+          <Div></Div>
+        </Table.Header>
+        <Table.Body
+          data={warehouseStoreData}
+          render={(warehouseStore) => (
+            <WarehouseStoreRow
+              key={warehouseStore.id}
+              warehouseStore={warehouseStore}
+            />
+          )}
+        />
+      </Table>
+    </Menus>
   )
 }
 

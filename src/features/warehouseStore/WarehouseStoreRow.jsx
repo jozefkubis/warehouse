@@ -92,7 +92,7 @@ function WarehouseStoreRow({ warehouseStore }) {
     <Table.Row>
       <Img src={image} />
       <StoreItem>{code}</StoreItem>
-      <Div>{name} </Div>
+      <Div>{name}</Div>
       <Div>{NoOfPcs}</Div>
       <Price>{formatCurrency(regularPrice)}</Price>
       {discount ? (
@@ -123,7 +123,7 @@ function WarehouseStoreRow({ warehouseStore }) {
 
             <Modal.Window name="delete">
               <ConfirmDelete
-                resourceName="cabins"
+                resourceName="Store Item"
                 onConfirm={() => deleteStoreItem(storeId)}
                 disabled={isDeleting}
               />

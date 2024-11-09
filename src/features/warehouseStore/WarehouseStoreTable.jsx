@@ -5,6 +5,7 @@ import { useWarehouseStore } from "./useWarehouseStore"
 import Table from "../../ui/Table"
 import Menus from "../../ui/Menus"
 import { useSearchParams } from "react-router-dom"
+import Empty from "../../ui/Empty"
 
 const Div = styled.div`
   margin: 0 auto;
@@ -15,6 +16,8 @@ function WarehouseStoreTable() {
   const [searchParams] = useSearchParams()
 
   if (isLoading) return <Spinner />
+  if (!warehouseStoreData.length)
+    return <Empty resourceName="warehouse store" />
 
   // MARK: FILTERING
   const filterValue = searchParams.get("discount") || "all"

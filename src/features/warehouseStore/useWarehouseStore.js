@@ -7,7 +7,7 @@ export function useWarehouseStore() {
     data: warehouseStoreData,
     error,
   } = useQuery({
-    queryKey: ["Warehouse Store"],
+    queryKey: ["WarehouseStore"],
     queryFn: getWarehouseStore,
   })
 

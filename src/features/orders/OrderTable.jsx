@@ -4,6 +4,11 @@ import Menus from "../../ui/Menus"
 import Empty from "../../ui/Empty"
 import { useOrders } from "./useOrders"
 import Spinner from "../../ui/Spinner"
+import styled from "styled-components"
+
+const Div = styled.div`
+  margin: 0 auto;
+`
 
 function OrderTable() {
   const { orders, isLoading } = useOrders()
@@ -14,14 +19,16 @@ function OrderTable() {
 
   return (
     <Menus>
-      <Table columns="0.6fr 2fr 2.4fr 1.4fr 1fr 3.2rem">
+      <Table columns="0.7fr 1.6fr 1.5fr 2fr 0.8fr 1fr 0.6fr">
         <Table.Header>
-          <div>Cabin</div>
-          <div>Guest</div>
-          <div>Dates</div>
-          <div>Status</div>
-          <div>Amount</div>
-          <div></div>
+          <Div>Code</Div>
+          <Div>Product and Date</Div>
+          <Div>Customer</Div>
+          <Div>Address</Div>
+          <Div>Quantity</Div>
+          <Div>Status</Div>
+          <Div>Amount</Div>
+          <Div></Div>
         </Table.Header>
 
         <Table.Body

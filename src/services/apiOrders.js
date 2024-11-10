@@ -1,11 +1,20 @@
 import supabase from "./supabase"
 
 export async function getOrders() {
-  const { data, error } = await supabase
-    .from("orders")
-    .select(
-      "id, created_at, NoOfPcs, orderPrice, extrasPrice, status, notes, totalPrice, customers(fullName, email)"
-    )
+  const { data, error } = await supabase.from("orders").select(
+    `
+      id, 
+      created_at, 
+      NoOfPcs, 
+      orderPrice, 
+      extrasPrice, 
+      status, 
+      notes, 
+      totalPrice, 
+      WarehouseStore (name, code), 
+      customers (fullName, email, address)
+      `
+  )
 
   if (error) {
     console.error(error)

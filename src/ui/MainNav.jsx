@@ -72,7 +72,7 @@ function MainNav() {
         <li>
           <StyledNavLink to="/warehousestore">
             <HiOutlineShoppingCart />
-            <span>Warehouse Store</span>
+            <span>Store</span>
           </StyledNavLink>
         </li>
         <li>

@@ -31,10 +31,10 @@ const Img = styled.img`
 `
 
 const StoreItem = styled.div`
-  font-size: 1.6rem;
+  font-size: 1.4rem;
   font-weight: 600;
   color: var(--color-grey-600);
-  font-family: "Sono";
+  /* font-family: "Sono"; */
   margin: 0 auto;
 `
 

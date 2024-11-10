@@ -3,7 +3,7 @@ import supabase, { supabaseUrl } from "./supabase"
 // MARK: GET ALL STORE ITEMS.................................................
 
 export async function getWarehouseStore() {
-  const { data, error } = await supabase.from("Warehouse Store").select("*")
+  const { data, error } = await supabase.from("WarehouseStore").select("*")
 
   if (error) {
     console.error(error)

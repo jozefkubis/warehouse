@@ -1,20 +1,22 @@
 import supabase from "./supabase"
 
-export async function getOrders() {
-  const { data, error } = await supabase.from("orders").select(
-    `
-      id, 
-      created_at, 
-      NoOfPcs, 
-      orderPrice, 
-      extrasPrice, 
-      status, 
-      notes, 
-      totalPrice, 
-      WarehouseStore (name, code), 
-      customers (fullName, email, address)
-      `
-  )
+export async function getOrders({ filter, sortBy }) {
+  let query = supabase
+    .from("orders")
+    .select(
+      "id, created_at, NoOfPcs, orderPrice, extrasPrice, status, notes, totalPrice, WarehouseStore(name, code), customers(fullName, email, address)"
+    )
+
+  // MARK: FILTERING
+  if (filter) query = query[filter.method || "eq"](filter.field, filter.value)
+
+  // MARK: SORTING
+  if (sortBy)
+    query = query.order(sortBy.field, {
+      ascending: sortBy.direction === "asc",
+    })
+
+  const { data, error } = await query
 
   if (error) {
     console.error(error)

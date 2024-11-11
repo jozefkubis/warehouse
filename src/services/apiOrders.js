@@ -1,10 +1,12 @@
 import supabase from "./supabase"
+import { PAGE_SIZE } from "../utils/constans"
 
-export async function getOrders({ filter, sortBy }) {
+export async function getOrders({ filter, sortBy, page }) {
   let query = supabase
     .from("orders")
     .select(
-      "id, created_at, NoOfPcs, orderPrice, extrasPrice, status, notes, totalPrice, WarehouseStore(name, code), customers(fullName, email, address)"
+      "id, created_at, NoOfPcs, orderPrice, extrasPrice, status, notes, totalPrice, WarehouseStore(name, code), customers(fullName, email, address)",
+      { count: "exact" }
     )
 
   // MARK: FILTERING
@@ -16,14 +18,21 @@ export async function getOrders({ filter, sortBy }) {
       ascending: sortBy.direction === "asc",
     })
 
-  const { data, error } = await query
+  // MARK: PAGING
+  if (page) {
+    const from = (page - 1) * PAGE_SIZE
+    const to = from + PAGE_SIZE - 1
+    query = query.range(from, to)
+  }
+
+  const { data, error, count } = await query
 
   if (error) {
     console.error(error)
     throw new Error("Orders could not be loaded")
   }
 
-  return data
+  return { data, count }
 }
 
 export async function getOrder(id) {

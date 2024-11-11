@@ -5,13 +5,14 @@ import Empty from "../../ui/Empty"
 import { useOrders } from "./useOrders"
 import Spinner from "../../ui/Spinner"
 import styled from "styled-components"
+import Pagination from "../../ui/Pagination"
 
 const Div = styled.div`
   margin: 0 auto;
 `
 
 function OrderTable() {
-  const { orders, isLoading } = useOrders()
+  const { orders, isLoading, count } = useOrders()
 
   if (isLoading) return <Spinner />
 
@@ -35,6 +36,10 @@ function OrderTable() {
           data={orders}
           render={(order) => <OrderRow key={order.id} order={order} />}
         />
+
+        <Table.Footer>
+          <Pagination count={count} />
+        </Table.Footer>
       </Table>
     </Menus>
   )

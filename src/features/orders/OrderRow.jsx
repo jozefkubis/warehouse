@@ -5,6 +5,9 @@ import Tag from "../../ui/Tag"
 import Table from "../../ui/Table"
 
 import { formatCurrency } from "../../utils/helpers"
+import { useNavigate } from "react-router-dom"
+import Menus from "../../ui/Menus"
+import { HiEye } from "react-icons/hi2"
 
 const Item = styled.div`
   font-size: 1.4rem;
@@ -53,7 +56,7 @@ const Amount = styled.div`
 
 function OrderRow({
   order: {
-    id: OrderId,
+    id: orderId,
     created_at,
     NoOfPcs,
     orderPrice,
@@ -65,6 +68,8 @@ function OrderRow({
     customers: { fullName: customerName, email, address },
   },
 }) {
+  const navigate = useNavigate()
+
   const statusToTagName = {
     "in-progress": "blue",
     shipped: "green",
@@ -88,6 +93,18 @@ function OrderRow({
       <Tag type={statusToTagName[status]}>{status.replace("-", " ")}</Tag>
 
       <Amount>{formatCurrency(totalPrice)}</Amount>
+
+      <Menus.Menu>
+        <Menus.Toggle id={orderId} />
+        <Menus.List id={orderId}>
+          <Menus.Button
+            icon={<HiEye />}
+            onClick={() => navigate(`/orders/${orderId}`)}
+          >
+            See details
+          </Menus.Button>
+        </Menus.List>
+      </Menus.Menu>
     </Table.Row>
   )
 }

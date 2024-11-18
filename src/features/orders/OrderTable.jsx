@@ -20,7 +20,7 @@ function OrderTable() {
 
   return (
     <Menus>
-      <Table columns="0.7fr 1.6fr 1.5fr 2fr 0.8fr 1fr 0.6fr">
+      <Table columns="0.7fr 1.6fr 1.5fr 2fr 0.8fr 1fr 0.6fr 0.6fr">
         <Table.Header>
           <Div>Code</Div>
           <Div>Product and Date</Div>

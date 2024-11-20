@@ -7,7 +7,7 @@ import Table from "../../ui/Table"
 import { formatCurrency } from "../../utils/helpers"
 import { useNavigate } from "react-router-dom"
 import Menus from "../../ui/Menus"
-import { HiEye } from "react-icons/hi2"
+import { HiArrowDownOnSquare, HiEye } from "react-icons/hi2"
 
 const Item = styled.div`
   font-size: 1.4rem;
@@ -97,6 +97,13 @@ function OrderRow({
       <Menus.Menu>
         <Menus.Toggle id={orderId} />
         <Menus.List id={orderId}>
+          <Menus.Button
+            icon={<HiArrowDownOnSquare />}
+            onClick={() => navigate(`/checkin/${orderId}`)}
+          >
+            Check in
+          </Menus.Button>
+
           <Menus.Button
             icon={<HiEye />}
             onClick={() => navigate(`/orders/${orderId}`)}

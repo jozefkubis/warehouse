@@ -11,7 +11,8 @@ import ButtonText from "../../ui/ButtonText"
 import { useMoveBack } from "../../hooks/useMoveBack"
 import Spinner from "../../ui/Spinner"
 import { useOrder } from "./useOrder"
-import { HiOutlineShoppingCart } from "react-icons/hi2"
+import { useNavigate } from "react-router-dom"
+// import { HiOutlineShoppingCart } from "react-icons/hi2"
 
 const HeadingGroup = styled.div`
   display: flex;
@@ -27,6 +28,8 @@ const HeadingGroup = styled.div`
 
 function OrderDetail() {
   const { order, isLoading } = useOrder()
+
+  const navigate = useNavigate()
 
   const moveBack = useMoveBack()
 
@@ -54,6 +57,12 @@ function OrderDetail() {
       <OrderDataBox order={order} />
 
       <ButtonGroup>
+        {status === "in-progress" && (
+          <Button onClick={() => navigate(`/checkin/${orderId}`)}>
+            Check in
+          </Button>
+        )}
+
         <Button variation="secondary" onClick={moveBack}>
           Back
         </Button>

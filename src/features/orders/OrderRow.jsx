@@ -71,7 +71,8 @@ function OrderRow({
   const navigate = useNavigate()
 
   const statusToTagName = {
-    "in-progress": "blue",
+    "in-progress": "silver",
+    "checked-in": "blue",
     shipped: "green",
   }
 
@@ -97,13 +98,14 @@ function OrderRow({
       <Menus.Menu>
         <Menus.Toggle id={orderId} />
         <Menus.List id={orderId}>
-          <Menus.Button
-            icon={<HiArrowDownOnSquare />}
-            onClick={() => navigate(`/checkin/${orderId}`)}
-          >
-            Check in
-          </Menus.Button>
-
+          {status === "in-progress" && (
+            <Menus.Button
+              icon={<HiArrowDownOnSquare />}
+              onClick={() => navigate(`/checkin/${orderId}`)}
+            >
+              Check in
+            </Menus.Button>
+          )}
           <Menus.Button
             icon={<HiEye />}
             onClick={() => navigate(`/orders/${orderId}`)}

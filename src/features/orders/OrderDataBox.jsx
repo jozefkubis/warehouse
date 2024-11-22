@@ -10,6 +10,7 @@ import DataItem from "../../ui/DataItem"
 
 import { formatDistanceFromNow, formatCurrency } from "../../utils/helpers"
 import { TbSend2 } from "react-icons/tb"
+import { useSettings } from "../settings/useSettings"
 
 const StyledOrderDataBox = styled.section`
   /* Box */
@@ -108,19 +109,24 @@ const Footer = styled.footer`
 
 // A purely presentational component
 function OrderDataBox({ order }) {
+  const { settings } = useSettings()
+
   const {
     // id,
     created_at,
     NoOfPcs,
     orderPrice,
-    extrasPrice,
     // status,
     notes,
-    totalPrice,
+    // totalPrice,
     isPaid,
     WarehouseStore: { name: ItemName, code },
     customers: { fullName: customerName, email, address },
   } = order
+
+  const shippingPrice = settings.shipping
+  const totalOrderPrice = orderPrice * NoOfPcs
+  const totalPrice = totalOrderPrice + shippingPrice
 
   return (
     <StyledOrderDataBox>
@@ -169,8 +175,8 @@ function OrderDataBox({ order }) {
           <DataItem icon={<HiOutlineCurrencyDollar />} label={`Total price`}>
             {formatCurrency(totalPrice)}
 
-            {` (${formatCurrency(orderPrice)} cabin + ${formatCurrency(
-              extrasPrice
+            {` (${formatCurrency(totalOrderPrice)} cabin + ${formatCurrency(
+              shippingPrice
             )}) `}
           </DataItem>
 

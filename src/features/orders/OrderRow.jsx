@@ -8,6 +8,7 @@ import { formatCurrency } from "../../utils/helpers"
 import { useNavigate } from "react-router-dom"
 import Menus from "../../ui/Menus"
 import { HiArrowDownOnSquare, HiEye } from "react-icons/hi2"
+// import { useSettings } from "../settings/useSettings"
 
 const Item = styled.div`
   font-size: 1.4rem;
@@ -60,20 +61,19 @@ function OrderRow({
     created_at,
     NoOfPcs,
     orderPrice,
-    extrasPrice,
     status,
     notes,
-    totalPrice,
     WarehouseStore: { name: ItemName, code },
     customers: { fullName: customerName, email, address },
   },
+  shippingPrice,
 }) {
   const navigate = useNavigate()
+  const totalPrice = (orderPrice + shippingPrice) * NoOfPcs
 
   const statusToTagName = {
     "in-progress": "silver",
-    "checked-in": "blue",
-    shipped: "green",
+    "checked-in": "green",
   }
 
   return (

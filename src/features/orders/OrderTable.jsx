@@ -6,6 +6,7 @@ import { useOrders } from "./useOrders"
 import Spinner from "../../ui/Spinner"
 import styled from "styled-components"
 import Pagination from "../../ui/Pagination"
+import { useSettings } from "../settings/useSettings"
 
 const Div = styled.div`
   margin: 0 auto;
@@ -13,10 +14,22 @@ const Div = styled.div`
 
 function OrderTable() {
   const { orders, isLoading, count } = useOrders()
+  const { settings } = useSettings()
 
   if (isLoading) return <Spinner />
 
   if (!orders.length) return <Empty resourceName="orders" />
+
+  // Skontroluj, či settings a settings.shipping nie sú undefined
+  if (!settings || typeof settings.shipping === "undefined") {
+    console.error(
+      "Settings not loaded or missing 'shipping' property:",
+      settings
+    )
+    return <Spinner /> // Alebo iný vhodný spôsob, ako zobraziť stav načítania / chyby
+  }
+
+  const shippingPrice = settings.shipping
 
   return (
     <Menus>
@@ -34,7 +47,13 @@ function OrderTable() {
 
         <Table.Body
           data={orders}
-          render={(order) => <OrderRow key={order.id} order={order} />}
+          render={(order) => (
+            <OrderRow
+              key={order.id}
+              order={order}
+              shippingPrice={shippingPrice}
+            />
+          )}
         />
 
         <Table.Footer>

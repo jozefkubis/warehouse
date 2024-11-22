@@ -29,7 +29,6 @@ const Box = styled.div`
 
 function CheckinOrder() {
   const [confirmPaid, setConfirmPaid] = useState(false)
-  const [addShipping, setAddShipping] = useState(false)
   const { order, isLoading } = useOrder()
   const { settings, isLoading: isLoadingSettings } = useSettings()
 
@@ -42,25 +41,21 @@ function CheckinOrder() {
 
   if (isLoading || isLoadingSettings) return <Spinner />
 
-  const { id: orderId, customers, totalPrice, isPaid, NoOfPcs } = order
+  const { id: orderId, customers, orderPrice, isPaid, NoOfPcs } = order
 
-  const optionalShippingPrice = settings.shipping * NoOfPcs
+  const shippingPrice = settings.shipping
+  const totalOrderPrice = orderPrice * NoOfPcs
+  const totalPrice = totalOrderPrice + shippingPrice
 
   function handleCheckin() {
     if (!confirmPaid) return
 
-    if (addShipping) {
-      checkin({
-        orderId,
-        shipping: {
-          isPaid: true,
-          extrasPrice: optionalShippingPrice,
-          totalPrice: totalPrice + optionalShippingPrice,
-        },
-      })
-    } else {
-      checkin({ orderId, shipping: {} })
-    }
+    checkin({
+      orderId,
+      isPaid: true,
+      shipping: shippingPrice,
+      totalPrice: orderPrice + shippingPrice,
+    })
   }
 
   return (
@@ -72,7 +67,7 @@ function CheckinOrder() {
 
       <OrderDataBox order={order} />
 
-      {!isPaid && (
+      {/* {!isPaid && (
         <Box>
           <Checkbox
             checked={addShipping}
@@ -82,10 +77,10 @@ function CheckinOrder() {
             }}
             id="shipping"
           >
-            Want to add shipping for {formatCurrency(optionalShippingPrice)}?
+            Want to add shipping for {formatCurrency(shippingPrice)}?
           </Checkbox>
         </Box>
-      )}
+      )} */}
 
       <Box>
         <Checkbox
@@ -96,13 +91,9 @@ function CheckinOrder() {
         >
           I confirm that {customers.fullName} has paid the total amount of{" "}
           <strong>
-            {!addShipping
-              ? formatCurrency(totalPrice)
-              : `${formatCurrency(
-                  totalPrice + optionalShippingPrice
-                )} (${formatCurrency(totalPrice)} + ${formatCurrency(
-                  optionalShippingPrice
-                )})`}
+            {`${formatCurrency(totalPrice)} (${formatCurrency(
+              totalOrderPrice
+            )} + ${formatCurrency(shippingPrice)})`}
           </strong>
         </Checkbox>
       </Box>

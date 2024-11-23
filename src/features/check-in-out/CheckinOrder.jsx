@@ -41,10 +41,16 @@ function CheckinOrder() {
 
   if (isLoading || isLoadingSettings) return <Spinner />
 
-  const { id: orderId, customers, orderPrice, isPaid, NoOfPcs } = order
+  const {
+    id: orderId,
+    customers,
+    WarehouseStore: { regularPrice, discount },
+    // isPaid,
+    NoOfPcs,
+  } = order
 
   const shippingPrice = settings.shipping
-  const totalOrderPrice = orderPrice * NoOfPcs
+  const totalOrderPrice = (regularPrice - discount) * NoOfPcs
   const totalPrice = totalOrderPrice + shippingPrice
 
   function handleCheckin() {
@@ -54,7 +60,7 @@ function CheckinOrder() {
       orderId,
       isPaid: true,
       shipping: shippingPrice,
-      totalPrice: orderPrice + shippingPrice,
+      totalPrice: totalPrice + shippingPrice,
     })
   }
 

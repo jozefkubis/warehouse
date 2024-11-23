@@ -60,16 +60,17 @@ function OrderRow({
     id: orderId,
     created_at,
     NoOfPcs,
-    orderPrice,
+    // orderPrice,
     status,
     notes,
-    WarehouseStore: { name: ItemName, code },
+    WarehouseStore: { name: ItemName, code, regularPrice, discount },
     customers: { fullName: customerName, email, address },
   },
   shippingPrice,
 }) {
   const navigate = useNavigate()
-  const totalPrice = (orderPrice + shippingPrice) * NoOfPcs
+  const orderPrice = regularPrice - discount
+  const totalPrice = orderPrice * NoOfPcs + shippingPrice
 
   const statusToTagName = {
     "in-progress": "silver",

@@ -11,6 +11,7 @@ import DataItem from "../../ui/DataItem"
 import { formatDistanceFromNow, formatCurrency } from "../../utils/helpers"
 import { TbSend2 } from "react-icons/tb"
 import { useSettings } from "../settings/useSettings"
+import Spinner from "../../ui/Spinner"
 
 const StyledOrderDataBox = styled.section`
   /* Box */
@@ -109,22 +110,31 @@ const Footer = styled.footer`
 
 // A purely presentational component
 function OrderDataBox({ order }) {
-  const { settings } = useSettings()
-
   const {
     // id,
     created_at,
     NoOfPcs,
-    orderPrice,
+    // orderPrice,
     // status,
     notes,
     // totalPrice,
     isPaid,
-    WarehouseStore: { name: ItemName, code },
+    WarehouseStore: { name: ItemName, code, regularPrice, discount },
     customers: { fullName: customerName, email, address },
   } = order
 
+  const { settings } = useSettings()
+
+  if (!settings || typeof settings.shipping === "undefined") {
+    console.error(
+      "Settings not loaded or missing 'shipping' property:",
+      settings
+    )
+    return <Spinner /> // Alebo iný vhodný spôsob, ako zobraziť stav načítania / chyby
+  }
+
   const shippingPrice = settings.shipping
+  const orderPrice = regularPrice - discount
   const totalOrderPrice = orderPrice * NoOfPcs
   const totalPrice = totalOrderPrice + shippingPrice
 
@@ -180,12 +190,12 @@ function OrderDataBox({ order }) {
             )}) `}
           </DataItem>
 
-          <p>{isPaid ? "Paid" : "Will pay at delivery"}</p>
+          <p>{isPaid ? "Paid" : "Not paid"}</p>
         </Price>
       </Section>
 
       <Footer>
-        <p>Booked {format(new Date(created_at), "EEE, MMM dd yyyy, p")}</p>
+        <p>Ordered {format(new Date(created_at), "EEE, MMM dd yyyy, p")}</p>
       </Footer>
     </StyledOrderDataBox>
   )

@@ -9,7 +9,7 @@ function OrderTableOperations() {
         filterField="status"
         options={[
           { value: "all", label: "All" },
-          { value: "shipped", label: "Shipped" },
+          { value: "checked-in", label: "Checked in" },
           { value: "in-progress", label: "In progress" },
         ]}
       />

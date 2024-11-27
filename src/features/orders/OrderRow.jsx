@@ -129,7 +129,7 @@ function OrderRow({
               See details
             </Menus.Button>
 
-            {status === "delivered" && (
+            {status === "checked-in" && (
               <Menus.Button
                 icon={<HiArrowUpOnSquare />}
                 onClick={() => delivered(orderId)}

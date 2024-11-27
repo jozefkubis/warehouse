@@ -36,7 +36,7 @@ export function useOrders() {
 
   if (page < pageCount)
     queryClient.prefetchQuery({
-      queryKey: ["query", filter, sortBy, page + 1],
+      queryKey: ["orders", filter, sortBy, page + 1],
       queryFn: () => getOrders({ filter, sortBy, page: page + 1 }),
     })
 

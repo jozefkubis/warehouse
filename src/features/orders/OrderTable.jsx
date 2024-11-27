@@ -30,7 +30,7 @@ function OrderTable() {
   }
 
   const shippingPrice = settings.shipping
-  console.log(shippingPrice)
+  // console.log(shippingPrice)
 
   return (
     <Menus>

@@ -7,7 +7,16 @@ import Table from "../../ui/Table"
 import { formatCurrency } from "../../utils/helpers"
 import { useNavigate } from "react-router-dom"
 import Menus from "../../ui/Menus"
-import { HiArrowDownOnSquare, HiEye } from "react-icons/hi2"
+import {
+  HiArrowDownOnSquare,
+  HiArrowUpOnSquare,
+  HiEye,
+  HiTrash,
+} from "react-icons/hi2"
+import useDelivered from "../check-in-out/useDelivered"
+import Modal from "../../ui/Modal"
+import ConfirmDelete from "../../ui/ConfirmDelete"
+import { useDeleteOrder } from "./useDeleteOrder"
 // import { useSettings } from "../settings/useSettings"
 
 const Item = styled.div`
@@ -60,7 +69,6 @@ function OrderRow({
     id: orderId,
     created_at,
     NoOfPcs,
-    // orderPrice,
     status,
     notes,
     WarehouseStore: { name: ItemName, code, regularPrice, discount },
@@ -69,12 +77,17 @@ function OrderRow({
   shippingPrice,
 }) {
   const navigate = useNavigate()
+  const { delivered, isDelivering } = useDelivered()
+  const { deleteOrder, isDeleting } = useDeleteOrder()
+
   const orderPrice = regularPrice - discount
-  const totalPrice = orderPrice * NoOfPcs + shippingPrice
+  const totalOrderPrice = orderPrice * NoOfPcs
+  const totalPrice = totalOrderPrice + shippingPrice
 
   const statusToTagName = {
     "in-progress": "silver",
     "checked-in": "green",
+    delivered: "yellow",
   }
 
   return (
@@ -96,25 +109,50 @@ function OrderRow({
 
       <Amount>{formatCurrency(totalPrice)}</Amount>
 
-      <Menus.Menu>
-        <Menus.Toggle id={orderId} />
-        <Menus.List id={orderId}>
-          {status === "in-progress" && (
+      <Modal>
+        <Menus.Menu>
+          <Menus.Toggle id={orderId} />
+          <Menus.List id={orderId}>
+            {status === "in-progress" && (
+              <Menus.Button
+                icon={<HiArrowDownOnSquare />}
+                onClick={() => navigate(`/checkin/${orderId}`)}
+              >
+                Check in
+              </Menus.Button>
+            )}
+
             <Menus.Button
-              icon={<HiArrowDownOnSquare />}
-              onClick={() => navigate(`/checkin/${orderId}`)}
+              icon={<HiEye />}
+              onClick={() => navigate(`/orders/${orderId}`)}
             >
-              Check in
+              See details
             </Menus.Button>
-          )}
-          <Menus.Button
-            icon={<HiEye />}
-            onClick={() => navigate(`/orders/${orderId}`)}
-          >
-            See details
-          </Menus.Button>
-        </Menus.List>
-      </Menus.Menu>
+
+            {status === "delivered" && (
+              <Menus.Button
+                icon={<HiArrowUpOnSquare />}
+                onClick={() => delivered(orderId)}
+                disabled={isDelivering}
+              >
+                Delivered
+              </Menus.Button>
+            )}
+
+            <Modal.Open opens="delete">
+              <Menus.Button icon={<HiTrash />}>Delete Order</Menus.Button>
+            </Modal.Open>
+          </Menus.List>
+        </Menus.Menu>
+
+        <Modal.Window name="delete">
+          <ConfirmDelete
+            resourceName="order"
+            onConfirm={() => deleteOrder(orderId)}
+            disabled={isDeleting}
+          />
+        </Modal.Window>
+      </Modal>
     </Table.Row>
   )
 }

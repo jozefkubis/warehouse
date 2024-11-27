@@ -11,6 +11,7 @@ function OrderTableOperations() {
           { value: "all", label: "All" },
           { value: "checked-in", label: "Checked in" },
           { value: "in-progress", label: "In progress" },
+          { value: "delivered", label: "Delivered" },
         ]}
       />
 
@@ -32,8 +33,14 @@ function OrderTableOperations() {
             value: "customers(fullName)-desc",
             label: "Sort by customer name (Z-A)",
           },
-          { value: "totalPrice-asc", label: "Sort by price (low first)" },
-          { value: "totalPrice-desc", label: "Sort by price (high first)" },
+          // {
+          //   value: "WarehouseStore(regularPrice)-asc",
+          //   label: "Sort by price (low first)",
+          // },
+          // {
+          //   value: "WarehouseStore(regularPrice)-desc",
+          //   label: "Sort by price (high first)",
+          // },
           { value: "NoOfPcs-asc", label: "Sort by No. of pcs (low first)" },
           { value: "NoOfPcs-desc", label: "Sort by No. of pcs (high first)" },
           {

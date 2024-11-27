@@ -5,7 +5,7 @@ export async function getOrders({ filter, sortBy, page }) {
   let query = supabase
     .from("orders")
     .select(
-      "id, created_at, NoOfPcs,  status, notes,  WarehouseStore(name, code, regularPrice, discount), customers(fullName, email, address)",
+      "id, created_at, NoOfPcs,  status, notes, WarehouseStore(name, code, regularPrice, discount), customers(fullName, email, address)",
       { count: "exact" }
     )
 
@@ -61,6 +61,17 @@ export async function updateOrder(id, obj) {
   if (error) {
     console.error(error)
     throw new Error("Order could not be updated")
+  }
+  return data
+}
+
+export async function deleteOrder(id) {
+  // REMEMBER RLS POLICIES
+  const { data, error } = await supabase.from("orders").delete().eq("id", id)
+
+  if (error) {
+    console.error(error)
+    throw new Error("Order could not be deleted")
   }
   return data
 }

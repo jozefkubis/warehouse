@@ -114,10 +114,8 @@ function OrderDataBox({ order }) {
     // id,
     created_at,
     NoOfPcs,
-    // orderPrice,
     // status,
     notes,
-    // totalPrice,
     isPaid,
     WarehouseStore: { name: ItemName, code, regularPrice, discount },
     customers: { fullName: customerName, email, address },
@@ -183,9 +181,9 @@ function OrderDataBox({ order }) {
 
         <Price isPaid={isPaid}>
           <DataItem icon={<HiOutlineCurrencyDollar />} label={`Total price`}>
-            {formatCurrency(totalPrice)}
+            {formatCurrency(totalOrderPrice)}
 
-            {` (${formatCurrency(totalOrderPrice)} cabin + ${formatCurrency(
+            {` (${formatCurrency(totalPrice)} cabin + ${formatCurrency(
               shippingPrice
             )}) `}
           </DataItem>

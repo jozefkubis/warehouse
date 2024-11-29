@@ -26,6 +26,11 @@ function LoginForm() {
     )
   }
 
+  function reset() {
+    setEmail("")
+    setPassword("")
+  }
+
   return (
     <Form onSubmit={handleSubmit}>
       <FormRowVertical label="Email address">
@@ -51,6 +56,14 @@ function LoginForm() {
         />
       </FormRowVertical>
       <FormRowVertical>
+        <Button
+          variation="secondary"
+          type="reset"
+          disabled={isLoading}
+          onClick={reset}
+        >
+          Cancel
+        </Button>
         <Button size="large" disabled={isLoading}>
           {!isLoading ? "Login" : <SpinnerMini />}
         </Button>

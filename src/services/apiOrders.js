@@ -77,17 +77,3 @@ export async function deleteOrder(id) {
   return data
 }
 
-export async function getOrdersAfterDate(date) {
-  const { data, error } = await supabase
-    .from("orders")
-    .select("created_at, status, isPaid, WarehouseStore(regularPrice, discount)")
-    .gte("created_at", date)
-    .lte("created_at", getToday({ end: true }))
-
-  if (error) {
-    console.error(error)
-    throw new Error("Oreders could not get loaded")
-  }
-
-  return data
-}

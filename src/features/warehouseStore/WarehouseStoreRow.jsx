@@ -69,7 +69,7 @@ function WarehouseStoreRow({ warehouseStore }) {
     id: storeId,
     code,
     name,
-    NoOfPcs,
+    // NoOfPcs,
     regularPrice,
     discount,
     description,
@@ -80,7 +80,7 @@ function WarehouseStoreRow({ warehouseStore }) {
     insertStoreItem({
       code,
       name: `Copy of ${name}`,
-      NoOfPcs,
+      // NoOfPcs,
       regularPrice,
       discount,
       description,
@@ -93,7 +93,7 @@ function WarehouseStoreRow({ warehouseStore }) {
       <Img src={image} />
       <StoreItem>{code}</StoreItem>
       <Div>{name}</Div>
-      <Div>{NoOfPcs}</Div>
+      {/* <Div>{NoOfPcs}</Div> */}
       <Price>{formatCurrency(regularPrice)}</Price>
       {discount ? (
         <Discount>{formatCurrency(discount)}</Discount>

@@ -1,5 +1,6 @@
 import supabase from "./supabase"
 import { PAGE_SIZE } from "../utils/constans"
+import { getToday } from "../utils/helpers"
 
 export async function getOrders({ filter, sortBy, page }) {
   let query = supabase
@@ -73,5 +74,20 @@ export async function deleteOrder(id) {
     console.error(error)
     throw new Error("Order could not be deleted")
   }
+  return data
+}
+
+export async function getOrdersAfterDate(date) {
+  const { data, error } = await supabase
+    .from("orders")
+    .select("created_at, status, isPaid, WarehouseStore(regularPrice, discount)")
+    .gte("created_at", date)
+    .lte("created_at", getToday({ end: true }))
+
+  if (error) {
+    console.error(error)
+    throw new Error("Oreders could not get loaded")
+  }
+
   return data
 }

@@ -1,6 +1,7 @@
 import styled from "styled-components"
 import { useRecentOrders } from "./useRecentOrders"
 import Spinner from "../../ui/Spinner"
+import Stats from "./Stats"
 
 const StyledDashboardLayout = styled.div`
   display: grid;
@@ -24,7 +25,11 @@ export default function DashboardLayout() {
 
   return (
     <StyledDashboardLayout>
-      <div>Statistics</div>
+      <Stats
+        orders={orders}
+        confirmedOrders={confirmedOrders}
+        unconfirmedOrders={unconfirmedOrders}
+      />
       <div>Today's activity</div>
       <div>Chart stay durations</div>
       <div>Chart sales</div>

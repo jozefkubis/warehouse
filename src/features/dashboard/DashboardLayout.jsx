@@ -2,6 +2,7 @@ import styled from "styled-components"
 import { useRecentOrders } from "./useRecentOrders"
 import Spinner from "../../ui/Spinner"
 import Stats from "./Stats"
+import { useWarehouseStore } from "../warehouseStore/useWarehouseStore"
 
 const StyledDashboardLayout = styled.div`
   display: grid;
@@ -16,12 +17,10 @@ export default function DashboardLayout() {
     unconfirmedOrders,
     isLoading: ordersLoading,
   } = useRecentOrders()
+  const { isLoading: warehouseStoreLoading, warehouseStoreData } =
+    useWarehouseStore()
 
-  if (ordersLoading) return <Spinner />
-
-  console.log(orders)
-  console.log(confirmedOrders)
-  console.log(unconfirmedOrders)
+  if (ordersLoading || warehouseStoreLoading) return <Spinner />
 
   return (
     <StyledDashboardLayout>
@@ -29,6 +28,7 @@ export default function DashboardLayout() {
         orders={orders}
         confirmedOrders={confirmedOrders}
         unconfirmedOrders={unconfirmedOrders}
+        warehouseStoreData={warehouseStoreData}
       />
       <div>Today's activity</div>
       <div>Chart stay durations</div>

@@ -1,6 +1,6 @@
 import {
   HiOutlineBanknotes,
-  HiOutlineChartBar,
+  // HiOutlineChartBar,
   HiOutlineShoppingCart,
 } from "react-icons/hi2"
 import { GiConfirmed } from "react-icons/gi"
@@ -12,15 +12,22 @@ export default function Stats({
   orders,
   confirmedOrders,
   unconfirmedOrders,
-  numDays,
-  cabinCount,
+  warehouseStoreData,
 }) {
-  const numOrders = orders?.length
-
-  const sales = orders.reduce(
-    (acc, cur) => acc + cur.WarehouseStore.regularPrice * cur.NoOfPcs,
+  const discounts = warehouseStoreData.reduce(
+    (acc, cur) => acc + cur.discount,
     0
   )
+
+  const numOrders = orders?.length
+
+  const sales = confirmedOrders.reduce(
+    (acc, cur) =>
+      acc + cur.WarehouseStore.regularPrice * cur.NoOfPcs - discounts,
+    0
+  )
+
+  console.log(sales)
 
   const confirmed = confirmedOrders.length
 

@@ -181,9 +181,9 @@ function OrderDataBox({ order }) {
 
         <Price isPaid={isPaid}>
           <DataItem icon={<HiOutlineCurrencyDollar />} label={`Total price`}>
-            {formatCurrency(totalOrderPrice)}
+            {formatCurrency(totalPrice)}
 
-            {` (${formatCurrency(totalPrice)} cabin + ${formatCurrency(
+            {` (${formatCurrency(totalOrderPrice)} cabin + ${formatCurrency(
               shippingPrice
             )}) `}
           </DataItem>

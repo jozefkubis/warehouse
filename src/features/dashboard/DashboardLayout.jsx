@@ -3,6 +3,7 @@ import { useRecentOrders } from "./useRecentOrders"
 import Spinner from "../../ui/Spinner"
 import Stats from "./Stats"
 import { useWarehouseStore } from "../warehouseStore/useWarehouseStore"
+import { useSettings } from "../settings/useSettings"
 
 const StyledDashboardLayout = styled.div`
   display: grid;
@@ -20,7 +21,12 @@ export default function DashboardLayout() {
   const { isLoading: warehouseStoreLoading, warehouseStoreData } =
     useWarehouseStore()
 
-  if (ordersLoading || warehouseStoreLoading) return <Spinner />
+  const { isLoading: settingsLoading, settings } = useSettings()
+
+  if (ordersLoading || warehouseStoreLoading || settingsLoading)
+    return <Spinner />
+
+  const { shipping } = settings
 
   return (
     <StyledDashboardLayout>
@@ -29,6 +35,7 @@ export default function DashboardLayout() {
         confirmedOrders={confirmedOrders}
         unconfirmedOrders={unconfirmedOrders}
         warehouseStoreData={warehouseStoreData}
+        shipping={shipping}
       />
       <div>Today's activity</div>
       <div>Chart stay durations</div>

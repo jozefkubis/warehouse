@@ -13,32 +13,22 @@ export default function Stats({
   confirmedOrders,
   unconfirmedOrders,
   warehouseStoreData,
+  shipping,
 }) {
-  const discounts = warehouseStoreData.reduce(
-    (acc, cur) => acc + cur.discount,
-    0
-  )
-
   const numOrders = orders?.length
 
   const sales = confirmedOrders.reduce(
     (acc, cur) =>
-      acc + cur.WarehouseStore.regularPrice * cur.NoOfPcs - discounts,
+      acc +
+      (cur.WarehouseStore.regularPrice - cur.WarehouseStore.discount) *
+        cur.NoOfPcs +
+      shipping,
     0
   )
-
-  console.log(sales)
 
   const confirmed = confirmedOrders.length
 
   const inProgress = unconfirmedOrders.length
-
-  // num checked nights / all available nights (numDays * cabinCount)
-  // const occupancyRate =
-  //   confirmedStays.reduce((acc, cur) => acc + cur.numNights, 0) /
-  //   (numDays * cabinCount)
-
-  // const confirmedOredersPercentage = (confirmed / numOrders) * 100
 
   return (
     <>

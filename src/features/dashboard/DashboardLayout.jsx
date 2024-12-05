@@ -1,4 +1,6 @@
 import styled from "styled-components"
+import { useRecentOrders } from "./useRecentOrders"
+import Spinner from "../../ui/Spinner"
 
 const StyledDashboardLayout = styled.div`
   display: grid;
@@ -7,6 +9,19 @@ const StyledDashboardLayout = styled.div`
   gap: 2.4rem;
 `
 export default function DashboardLayout() {
+  const {
+    orders,
+    confirmedOrders,
+    unconfirmedOrders,
+    isLoading: ordersLoading,
+  } = useRecentOrders()
+
+  if (ordersLoading) return <Spinner />
+
+  console.log(orders)
+  console.log(confirmedOrders)
+  console.log(unconfirmedOrders)
+
   return (
     <StyledDashboardLayout>
       <div>Statistics</div>

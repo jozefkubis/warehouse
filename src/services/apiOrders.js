@@ -77,3 +77,19 @@ export async function deleteOrder(id) {
   return data
 }
 
+// Returns all Orders that were created after the given date. Useful to get orders created in the last 30 days, for example.
+// date: must be an ISOstring
+export async function getOrdersAfterDate(date) {
+  const { data, error } = await supabase
+    .from("orders")
+    .select("created_at, NoOfPcs, status, WarehouseStore(*), customers(*)")
+    .gte("created_at", date)
+    .lte("created_at", getToday({ end: true }))
+
+  if (error) {
+    console.error(error)
+    throw new Error("Orders could not get loaded")
+  }
+
+  return data
+}

@@ -5,6 +5,7 @@ import Stats from "./Stats"
 import { useWarehouseStore } from "../warehouseStore/useWarehouseStore"
 import { useSettings } from "../settings/useSettings"
 import SalesChart from "./SalesChart"
+import DurationChart from "./DurationChart"
 
 const StyledDashboardLayout = styled.div`
   display: grid;
@@ -40,7 +41,13 @@ export default function DashboardLayout() {
         shipping={shipping}
       />
       <div>Today's activity</div>
-      <div>Chart stay durations</div>
+      <DurationChart
+        confirmedOrders={confirmedOrders}
+        unconfirmedOrders={unconfirmedOrders}
+        orders={orders}
+        numDays={numDays}
+        shipping={shipping}
+      />
       <SalesChart
         orders={orders}
         confirmedOrders={confirmedOrders}

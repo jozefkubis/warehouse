@@ -12,7 +12,7 @@ export default function Stats({
   orders,
   confirmedOrders,
   unconfirmedOrders,
-  warehouseStoreData,
+  // warehouseStoreData,
   shipping,
 }) {
   const numOrders = orders?.length

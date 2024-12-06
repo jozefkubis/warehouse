@@ -25,5 +25,5 @@ export function useRecentOrders() {
     (order) => order.status === "in-progress"
   )
 
-  return { isLoading, orders, confirmedOrders, unconfirmedOrders }
+  return { isLoading, orders, confirmedOrders, unconfirmedOrders, numDays }
 }

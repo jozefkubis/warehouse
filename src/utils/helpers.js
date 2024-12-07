@@ -28,3 +28,16 @@ export const formatCurrency = (value) =>
   new Intl.NumberFormat("en", { style: "currency", currency: "EUR" }).format(
     value
   )
+
+// export function filterOrders(orders, searchingItem) {
+//   return orders.filter(
+//     (order) =>
+//       order.customers.name
+//         .toLowerCase()
+//         .includes(searchingItem.toLowerCase()) ||
+//       order.WarehouseStore.name
+//         .toLowerCase()
+//         .includes(searchingItem.toLowerCase()) ||
+//       order.id.toString().includes(searchingItem.toLowerCase())
+//   )
+// }

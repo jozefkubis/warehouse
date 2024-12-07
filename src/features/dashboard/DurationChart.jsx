@@ -8,6 +8,7 @@ import {
   Legend,
 } from "recharts"
 import styled from "styled-components"
+import Heading from "../../ui/Heading"
 
 const ChartBox = styled.div`
   /* Box */
@@ -55,6 +56,7 @@ function DurationChart({
 
   return (
     <ChartBox>
+      <Heading as="h2">Orders status summary</Heading>
       <ResponsiveContainer width="100%" height={240}>
         <PieChart>
           <Pie

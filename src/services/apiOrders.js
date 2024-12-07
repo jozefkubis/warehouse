@@ -93,3 +93,16 @@ export async function getOrdersAfterDate(date) {
 
   return data
 }
+
+export async function getFilteredOrders() {
+  const { data, error } = await supabase
+    .from("orders")
+    .select("*, WarehouseStore(*), customers(*)")
+
+  if (error) {
+    console.error(error)
+    throw new Error("Orders could not get loaded")
+  }
+
+  return data
+}

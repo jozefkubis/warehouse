@@ -6,7 +6,7 @@ import { useWarehouseStore } from "../warehouseStore/useWarehouseStore"
 import { useSettings } from "../settings/useSettings"
 import SalesChart from "./SalesChart"
 import DurationChart from "./DurationChart"
-import ShortCutTable from "./ShortCutTable"
+import ShortCutSearch from "./ShortCutSearch"
 
 const StyledDashboardLayout = styled.div`
   display: grid;
@@ -41,7 +41,7 @@ export default function DashboardLayout() {
         warehouseStoreData={warehouseStoreData}
         shipping={shipping}
       />
-      <ShortCutTable />
+      <ShortCutSearch />
       <DurationChart
         confirmedOrders={confirmedOrders}
         unconfirmedOrders={unconfirmedOrders}

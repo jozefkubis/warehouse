@@ -59,8 +59,8 @@ function Modal({ children }) {
   const [openName, setOpenName] = useState("")
 
   const close = () => setOpenName("")
-  // const open = (name) => setOpenName(name)
-  const open = setOpenName
+  const open = (name) => setOpenName(name)
+  // const open = setOpenName
 
   return (
     <ModalContext.Provider value={{ openName, close, open }}>

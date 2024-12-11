@@ -87,6 +87,7 @@ function OrderRow({
   const statusToTagName = {
     "in-progress": "silver",
     "checked-in": "green",
+    shipped: "blue",
     delivered: "yellow",
   }
 

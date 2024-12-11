@@ -5,7 +5,9 @@ import { format } from "date-fns"
 import { useDarkMode } from "../../context/DarkModeContext"
 
 const StyledShortCutFn = styled.div`
-  font-size: 2rem;
+  font-size: 1.5rem;
+  max-height: 50rem;
+  overflow-y: auto;
 `
 
 const StyledContainer = styled.div`
@@ -64,7 +66,7 @@ function ShortCutFn({ filteredOrders }) {
               </p>
               <p>{order.customers.fullName}</p>
               <Button
-                size="medium"
+                size="small"
                 variation={isDarkMode ? "secondary" : "primary"}
                 onClick={() => navigate(`/orders/${order.id}`)}
               >

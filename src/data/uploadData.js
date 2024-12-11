@@ -42,7 +42,7 @@ async function uploadOrders() {
 async function uploadAllData() {
     await uploadCustomers();
     await uploadStoreItems();
-    await uploadOrders();
+    // await uploadOrders();
 }
 
 uploadAllData();

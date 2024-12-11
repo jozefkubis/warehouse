@@ -4,6 +4,7 @@ const imageUrl = `${supabaseUrl}//storage/v1/object/public/order-images/`;
 
 export const storeItems = [
     {
+        id: 1,
         code: 12345,
         name: "Dell XPS 13",
         regularPrice: 1200,
@@ -12,6 +13,7 @@ export const storeItems = [
         image: imageUrl + "item-001.jpg",
     },
     {
+        id: 2,
         code: 54321,
         name: "Apple MacBook Air M2",
         regularPrice: 1400,
@@ -20,6 +22,7 @@ export const storeItems = [
         image: imageUrl + "item-002.jpg",
     },
     {
+        id: 3,
         code: 67890,
         name: "Asus ROG Zephyrus G14",
         regularPrice: 1500,
@@ -28,6 +31,7 @@ export const storeItems = [
         image: imageUrl + "item-003.jpg",
     },
     {
+        id: 4,
         code: 98765,
         name: "HP Spectre x360",
         regularPrice: 1350,
@@ -36,6 +40,7 @@ export const storeItems = [
         image: imageUrl + "item-004.jpg",
     },
     {
+        id: 5,
         code: 11223,
         name: "Microsoft Surface Laptop 5",
         regularPrice: 1300,
@@ -44,6 +49,7 @@ export const storeItems = [
         image: imageUrl + "item-005.jpg",
     },
     {
+        id: 6,
         code: 44556,
         name: "Razer Blade 15",
         regularPrice: 2000,
@@ -52,6 +58,7 @@ export const storeItems = [
         image: imageUrl + "item-006.jpg",
     },
     {
+        id: 7,
         code: 77889,
         name: "Lenovo Yoga 9i",
         regularPrice: 1450,
@@ -60,6 +67,7 @@ export const storeItems = [
         image: imageUrl + "item-007.jpg",
     },
     {
+        id: 8,
         code: 99000,
         name: "Acer Predator Helios 300",
         regularPrice: 1700,
@@ -68,6 +76,7 @@ export const storeItems = [
         image: imageUrl + "item-008.jpg",
     },
     {
+        id: 9,
         code: 55443,
         name: "Gigabyte Aorus 15",
         regularPrice: 1600,
@@ -76,6 +85,7 @@ export const storeItems = [
         image: imageUrl + "item-009.jpg",
     },
     {
+        id: 10,
         code: 66778,
         name: "Samsung Galaxy Book Pro",
         regularPrice: 1100,
@@ -84,3 +94,4 @@ export const storeItems = [
         image: imageUrl + "item-010.jpg",
     }
 ];
+

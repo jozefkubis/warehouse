@@ -70,7 +70,6 @@ function OrderRow({
     created_at,
     NoOfPcs,
     status,
-    notes,
     WarehouseStore: { name: ItemName, code, regularPrice, discount },
     customers: { fullName: customerName, email, address },
   },

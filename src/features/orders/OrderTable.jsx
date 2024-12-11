@@ -20,13 +20,12 @@ function OrderTable() {
 
   if (!orders.length) return <Empty resourceName="orders" />
 
-  // Skontroluj, či settings a settings.shipping nie sú undefined
   if (!settings || typeof settings.shipping === "undefined") {
     console.error(
       "Settings not loaded or missing 'shipping' property:",
       settings
     )
-    return <Spinner /> // Alebo iný vhodný spôsob, ako zobraziť stav načítania / chyby
+    return <Spinner />
   }
 
   const shippingPrice = settings.shipping
@@ -34,7 +33,7 @@ function OrderTable() {
 
   return (
     <Menus>
-      <Table columns="0.7fr 1.6fr 1.5fr 2fr 0.8fr 1fr 0.6fr 0.6fr">
+      <Table columns="0.7fr 2fr 2fr 2.4fr 0.5fr 1fr 0.6fr 0.6fr">
         <Table.Header>
           <Div>Code</Div>
           <Div>Product and Date</Div>

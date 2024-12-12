@@ -63,30 +63,15 @@ export async function insertEditStoreItem(newItem, id) {
 // MARK:DELETE STORE ITEM.............................................
 
 export async function deleteWarehouseStoreItem(id) {
-  try {
-    // 1. Najskôr odstráň záznamy v `orders`
-    const { error: deleteOrdersError } = await supabase
-      .from("orders")
-      .delete()
-      .eq("storeId", id);
+  const { data, error } = await supabase
+    .from("WarehouseStore")
+    .delete()
+    .eq("id", id)
 
-    if (deleteOrdersError) {
-      console.error(deleteOrdersError);
-      throw new Error("Could not delete related orders");
-    }
-
-    // 2. Potom odstráň záznam z `WarehouseStore`
-    const { data, error } = await supabase.from("WarehouseStore").delete().eq("id", id);
-
-    if (error) {
-      console.error(error);
-      throw new Error("Store item could not be deleted");
-    }
-
-    return data;
-  } catch (error) {
-    console.error(error);
-    throw error;
+  if (error) {
+    console.error(error)
+    throw new Error("Store item could not be deleted")
   }
-}
 
+  return data
+}

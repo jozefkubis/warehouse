@@ -11,7 +11,7 @@ function OrderTableOperations() {
           { value: "all", label: "All" },
           { value: "checked-in", label: "Checked in" },
           { value: "processing", label: "Processing" },
-          { value: "delivered", label: "Delivered" },
+          { value: "shipped", label: "Shipped" },
         ]}
       />
 

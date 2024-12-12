@@ -66,7 +66,7 @@ function WarehouseStoreRow({ warehouseStore }) {
   const { isInserting, insertStoreItem } = useInsertStoreItem()
 
   const {
-    id: storeId,
+    id: itemId,
     code,
     name,
     // NoOfPcs,
@@ -105,8 +105,8 @@ function WarehouseStoreRow({ warehouseStore }) {
       <div>
         <Modal>
           <Menus.Menu>
-            <Menus.Toggle id={storeId} />
-            <Menus.List id={storeId}>
+            <Menus.Toggle id={itemId} />
+            <Menus.List id={itemId}>
               <Menus.Button icon={<HiSquare2Stack />} onClick={handleDuplicate}>
                 Duplicate
               </Menus.Button>
@@ -126,7 +126,7 @@ function WarehouseStoreRow({ warehouseStore }) {
             <Modal.Window name="delete">
               <ConfirmDelete
                 resourceName="Store Item"
-                onConfirm={() => deleteStoreItem(storeId)}
+                onConfirm={() => deleteStoreItem(itemId)}
                 disabled={isDeleting}
               />
             </Modal.Window>

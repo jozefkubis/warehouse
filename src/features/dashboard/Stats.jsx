@@ -47,7 +47,7 @@ export default function Stats({
       />
 
       <Stat
-        title="Confirmed Orders "
+        title="Processed Orders "
         color="indigo"
         icon={<GiConfirmed />}
         value={confirmed}

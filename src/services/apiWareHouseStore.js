@@ -38,7 +38,7 @@ export async function insertEditStoreItem(newItem, id) {
   }
 
   // Vlož alebo aktualizuj položku až po úspešnom nahraní obrázka alebo ak nie je nový obrázok
-  let query = supabase.from("Warehouse Store")
+  let query = supabase.from("WarehouseStore")
 
   // A) vlož
   if (!id) {
@@ -63,15 +63,30 @@ export async function insertEditStoreItem(newItem, id) {
 // MARK:DELETE STORE ITEM.............................................
 
 export async function deleteWarehouseStoreItem(id) {
-  const { data, error } = await supabase
-    .from("Warehouse Store")
-    .delete()
-    .eq("id", id)
+  try {
+    // 1. Najskôr odstráň záznamy v `orders`
+    const { error: deleteOrdersError } = await supabase
+      .from("orders")
+      .delete()
+      .eq("storeId", id);
 
-  if (error) {
-    console.error(error)
-    throw new Error("Store could not be deleted")
+    if (deleteOrdersError) {
+      console.error(deleteOrdersError);
+      throw new Error("Could not delete related orders");
+    }
+
+    // 2. Potom odstráň záznam z `WarehouseStore`
+    const { data, error } = await supabase.from("WarehouseStore").delete().eq("id", id);
+
+    if (error) {
+      console.error(error);
+      throw new Error("Store item could not be deleted");
+    }
+
+    return data;
+  } catch (error) {
+    console.error(error);
+    throw error;
   }
-
-  return data
 }
+

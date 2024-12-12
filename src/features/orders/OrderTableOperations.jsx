@@ -10,7 +10,7 @@ function OrderTableOperations() {
         options={[
           { value: "all", label: "All" },
           { value: "checked-in", label: "Checked in" },
-          { value: "in-progress", label: "In progress" },
+          { value: "processing", label: "Processing" },
           { value: "delivered", label: "Delivered" },
         ]}
       />

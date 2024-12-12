@@ -21,7 +21,6 @@ const StyledSearchInput = styled.div`
   gap: 2.4rem;
   grid-column: 1 / span 2;
   padding-top: 2.4rem;
-  /* justify-content: center; */
   align-items: center;
 `
 

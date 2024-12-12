@@ -39,20 +39,18 @@ function DurationChart({
     (order) => order.status === "checked-in"
   )
 
-  const deliveredOrders = orders?.filter(
-    (order) => order.status === "delivered"
-  )
+  const shippedOrders = orders?.filter((order) => order.status === "shipped")
 
-  const inProgressOrders = orders?.filter(
-    (order) => order.status === "in-progress"
+  const processingOrders = orders?.filter(
+    (order) => order.status === "processing"
   )
 
   const data = [
+    { name: "Processing", value: processingOrders.length },
     { name: "Checked-in", value: checkedInOrders.length },
-    { name: "Delivered", value: deliveredOrders.length },
-    { name: "In Progress", value: inProgressOrders.length },
+    { name: "Shipped", value: shippedOrders.length },
   ]
-  const COLORS = ["#FFBB28", "#00C49F", "#FF8042"]
+  const COLORS = ["#FF8042", "#FFBB28", "#00C49F"]
 
   return (
     <ChartBox>

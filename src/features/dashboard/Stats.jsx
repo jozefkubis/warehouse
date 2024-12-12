@@ -28,7 +28,7 @@ export default function Stats({
 
   const confirmed = confirmedOrders.length
 
-  const inProgress = unconfirmedOrders.length
+  const processing = unconfirmedOrders.length
 
   return (
     <>
@@ -54,10 +54,10 @@ export default function Stats({
       />
 
       <Stat
-        title="In Progress"
+        title="Processing"
         color="yellow"
         icon={<GrInProgress />}
-        value={inProgress}
+        value={processing}
       />
 
       {/* <Stat

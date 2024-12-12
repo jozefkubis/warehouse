@@ -12,7 +12,7 @@ import { useMoveBack } from "../../hooks/useMoveBack"
 import Spinner from "../../ui/Spinner"
 import { useOrder } from "./useOrder"
 import { useNavigate } from "react-router-dom"
-import useDelivered from "../check-in-out/useDelivered"
+import useShipped from "../check-in-out/useShipped"
 import { HiArrowUpOnSquare } from "react-icons/hi2"
 import Modal from "../../ui/Modal"
 import ConfirmDelete from "../../ui/ConfirmDelete"
@@ -33,7 +33,7 @@ const HeadingGroup = styled.div`
 
 function OrderDetail() {
   const { order, isLoading } = useOrder()
-  const { delivered, isDelivering } = useDelivered()
+  const { shipped, isShipping } = useShipped()
   const { deleteOrder, isDeleting } = useDeleteOrder()
 
   const navigate = useNavigate()
@@ -48,7 +48,7 @@ function OrderDetail() {
     unconfirmed: "blue",
     "checked-in": "green",
     "checked-out": "silver",
-    delivered: "green",
+    shipped: "yellow",
   }
 
   return (
@@ -65,7 +65,7 @@ function OrderDetail() {
       <OrderDataBox order={order} />
 
       <ButtonGroup>
-        {status === "in-progress" && (
+        {status === "processing" && (
           <Button onClick={() => navigate(`/checkin/${orderId}`)}>
             Check in
           </Button>
@@ -74,8 +74,8 @@ function OrderDetail() {
         {status === "checked-in" && (
           <Button
             icon={<HiArrowUpOnSquare />}
-            onClick={() => delivered(orderId)}
-            disabled={isDelivering}
+            onClick={() => shipped(orderId)}
+            disabled={isShipping}
           >
             Delivered
           </Button>

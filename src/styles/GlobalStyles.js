@@ -80,6 +80,11 @@ const GlobalStyles = createGlobalStyle`
 
 --image-grayscale: 10%;
 --image-opacity: 90%;
+
+::-webkit-scrollbar-track {
+  background: #1f2937; /* Svetlosivý podklad */
+  border-radius: 6px; /* Zaoblené rohy */
+}
   }
 
     /* Indigo */
@@ -113,7 +118,7 @@ const GlobalStyles = createGlobalStyle`
 
 html {
   font-size: 62.5%;
-}
+  }
 
 body {
   font-family: "Poppins", sans-serif;
@@ -123,6 +128,30 @@ body {
   min-height: 100vh;
   line-height: 1.5;
   font-size: 1.6rem;
+
+/* Prispôsobenie šírky scrollbar-u */
+::-webkit-scrollbar {
+  width: 10px; /* Šírka posuvníka */
+  height: 12px; /* Výška horizontálneho posuvníka */
+}
+
+/* Štýl pozadia scrollbar-u */
+::-webkit-scrollbar-track {
+  background: #f0f0f0; /* Svetlosivý podklad */
+  border-radius: 6px; /* Zaoblené rohy */
+}
+
+/* Štýl posuvníka (thumb) */
+::-webkit-scrollbar-thumb {
+  background: #888; /* Sivá farba */
+  border-radius: 6px; /* Zaoblené rohy */
+}
+
+/* Štýl pri hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555; /* Tmavšia sivá farba pri hover */
+}
+
 }
 
 input,

@@ -5,6 +5,7 @@ import { orders } from "./ordersData"
 import { useState } from "react"
 import Button from "../ui/Button"
 import { useDarkMode } from "../context/DarkModeContext"
+import toast from "react-hot-toast"
 
 async function uploadCustomers() {
   const { data: existingCustomers, error: fetchError } = await supabase
@@ -27,9 +28,11 @@ async function uploadCustomers() {
 
   if (error) {
     console.error("Customers data upload failed:", error)
+    toast.error("Customers data upload failed:", error)
   } else {
     console.log("Customers data uploaded successfully:", data)
     console.log(`Number of new customers uploaded: ${newCustomers.length}`)
+    toast.success(`Successfully uploaded ${newCustomers.length} new customers!`)
   }
 }
 
@@ -59,9 +62,13 @@ async function uploadStoreItems() {
 
   if (error) {
     console.error("StoreItems data upload failed:", error)
+    toast.error("StoreItems data upload failed:", error)
   } else {
     console.log("StoreItems data uploaded successfully:", data)
     console.log(`Number of new store items uploaded: ${newStoreItems.length}`)
+    toast.success(
+      `Successfully uploaded ${newStoreItems.length} new store items!`
+    )
   }
 }
 
@@ -85,9 +92,11 @@ async function uploadOrders() {
 
   if (error) {
     console.error("Orders data upload failed:", error)
+    toast.error("Orders data upload failed:", error)
   } else {
     console.log("Orders data uploaded successfully:", data)
     console.log(`Number of new orders uploaded: ${newOrders.length}`)
+    toast.success(`Successfully uploaded ${newOrders.length} new orders!`)
   }
 }
 

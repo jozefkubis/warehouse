@@ -18,11 +18,11 @@ export function useRecentOrders() {
   })
 
   const confirmedOrders = orders?.filter(
-    (order) => order.status === "checked-in" || order.status === "delivered"
+    (order) => order.status === "checked-in" || order.status === "shipped"
   )
 
   const unconfirmedOrders = orders?.filter(
-    (order) => order.status === "in-progress"
+    (order) => order.status === "processing"
   )
 
   return { isLoading, orders, confirmedOrders, unconfirmedOrders, numDays }

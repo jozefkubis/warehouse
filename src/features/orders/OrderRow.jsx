@@ -13,7 +13,7 @@ import {
   HiEye,
   HiTrash,
 } from "react-icons/hi2"
-import useDelivered from "../check-in-out/useDelivered"
+import useShipped from "../check-in-out/useShipped"
 import Modal from "../../ui/Modal"
 import ConfirmDelete from "../../ui/ConfirmDelete"
 import { useDeleteOrder } from "./useDeleteOrder"
@@ -76,7 +76,7 @@ function OrderRow({
   shippingPrice,
 }) {
   const navigate = useNavigate()
-  const { delivered, isDelivering } = useDelivered()
+  const { delivered, isDelivering } = useShipped()
   const { deleteOrder, isDeleting } = useDeleteOrder()
 
   const orderPrice = regularPrice - discount
@@ -84,10 +84,9 @@ function OrderRow({
   const totalPrice = totalOrderPrice + shippingPrice
 
   const statusToTagName = {
-    "in-progress": "silver",
+    processing: "silver",
     "checked-in": "green",
-    shipped: "blue",
-    delivered: "yellow",
+    shipped: "yellow",
   }
 
   return (
@@ -113,7 +112,7 @@ function OrderRow({
         <Menus.Menu>
           <Menus.Toggle id={orderId} />
           <Menus.List id={orderId}>
-            {status === "in-progress" && (
+            {status === "processing" && (
               <Menus.Button
                 icon={<HiArrowDownOnSquare />}
                 onClick={() => navigate(`/checkin/${orderId}`)}

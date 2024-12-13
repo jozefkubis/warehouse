@@ -29,6 +29,14 @@ const Img = styled.img`
   object-position: center;
   transform: scale(1.5) translateX(-7px);
 `
+const ModalImg = styled.img`
+  display: block;
+  width: 6.4rem;
+  aspect-ratio: 3 / 2;
+  object-fit: cover;
+  object-position: center;
+  transform: scale(12);
+`
 
 const StoreItem = styled.div`
   font-size: 1.4rem;
@@ -69,7 +77,6 @@ function WarehouseStoreRow({ warehouseStore }) {
     id: itemId,
     code,
     name,
-    // NoOfPcs,
     regularPrice,
     discount,
     description,
@@ -80,7 +87,6 @@ function WarehouseStoreRow({ warehouseStore }) {
     insertStoreItem({
       code,
       name: `Copy of ${name}`,
-      // NoOfPcs,
       regularPrice,
       discount,
       description,
@@ -90,17 +96,25 @@ function WarehouseStoreRow({ warehouseStore }) {
 
   return (
     <Table.Row>
-      <Img src={image} />
+      <div>
+        <Modal>
+          <Modal.Open opens="image-modal">
+            <Img src={image} />
+          </Modal.Open>
+          <Modal.Window name="image-modal">
+            <ModalImg src={image} />
+          </Modal.Window>
+        </Modal>
+      </div>
+
       <StoreItem>{code}</StoreItem>
       <Div>{name}</Div>
-      {/* <Div>{NoOfPcs}</Div> */}
       <Price>{formatCurrency(regularPrice)}</Price>
       {discount ? (
         <Discount>{formatCurrency(discount)}</Discount>
       ) : (
         <Span>&mdash;</Span>
       )}
-      {/* <Div>{description}</Div> */}
 
       <div>
         <Modal>

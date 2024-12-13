@@ -7,6 +7,7 @@ import Tag from "../../ui/Tag"
 import ButtonGroup from "../../ui/ButtonGroup"
 import Button from "../../ui/Button"
 import ButtonText from "../../ui/ButtonText"
+import Empty from "../../ui/Empty"
 
 import { useMoveBack } from "../../hooks/useMoveBack"
 import Spinner from "../../ui/Spinner"
@@ -41,6 +42,7 @@ function OrderDetail() {
   const moveBack = useMoveBack()
 
   if (isLoading) return <Spinner />
+  if (!order) return <Empty resourceName="order" />
 
   const { status, id: orderId } = order
 

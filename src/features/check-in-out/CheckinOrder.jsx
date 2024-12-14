@@ -10,13 +10,10 @@ import Checkbox from "../../ui/Checkbox"
 import { useMoveBack } from "../../hooks/useMoveBack"
 import Spinner from "../../ui/Spinner"
 import { useEffect, useState } from "react"
-// import { id, is } from "date-fns/locale"
 import { formatCurrency } from "../../utils/helpers"
 import useCheckin from "./useCheckin"
 import { useSettings } from "../settings/useSettings"
-// import { add } from "date-fns"
 import { useOrder } from "../orders/useOrder"
-// import Order from "../../pages/Order"
 import OrderDataBox from "../orders/OrderDataBox"
 
 const Box = styled.div`
@@ -45,7 +42,6 @@ function CheckinOrder() {
     id: orderId,
     customers,
     WarehouseStore: { regularPrice, discount },
-    // isPaid,
     NoOfPcs,
   } = order
 
@@ -66,27 +62,12 @@ function CheckinOrder() {
 
   return (
     <>
-      <Row type="horizontal">
+      <Row $type="horizontal">
         <Heading as="h1">Check in order #{orderId}</Heading>
         <ButtonText onClick={moveBack}>&larr; Back</ButtonText>
       </Row>
 
       <OrderDataBox order={order} />
-
-      {/* {!isPaid && (
-        <Box>
-          <Checkbox
-            checked={addShipping}
-            onChange={() => {
-              setAddShipping((add) => !add)
-              setConfirmPaid(false)
-            }}
-            id="shipping"
-          >
-            Want to add shipping for {formatCurrency(shippingPrice)}?
-          </Checkbox>
-        </Box>
-      )} */}
 
       <Box>
         <Checkbox
@@ -108,7 +89,7 @@ function CheckinOrder() {
         <Button onClick={handleCheckin} disabled={!confirmPaid || isCheckingIn}>
           Check in order #{orderId}
         </Button>
-        <Button variation="secondary" onClick={moveBack}>
+        <Button $variation="secondary" onClick={moveBack}>
           Back
         </Button>
       </ButtonGroup>

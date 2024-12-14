@@ -10,6 +10,10 @@ import { useInsertStoreItem } from "./useInsertStoreItem"
 import { useUpdateStoreItem } from "./useUpdateStoreItem"
 
 function CreateStoreForm({ itemToEdit = {}, onCloseModal }) {
+  const { isInserting, insertStoreItem } = useInsertStoreItem()
+  const { isUpdating, updateStoreItem } = useUpdateStoreItem()
+  const isWorking = isInserting || isUpdating
+
   const { id: editId, ...editValues } = itemToEdit
   const isEditSession = Boolean(editId)
 
@@ -22,10 +26,6 @@ function CreateStoreForm({ itemToEdit = {}, onCloseModal }) {
   } = useForm({
     defaultValues: isEditSession ? editValues : {},
   })
-
-  const { isInserting, insertStoreItem } = useInsertStoreItem()
-  const { isUpdating, updateStoreItem } = useUpdateStoreItem()
-  const isWorking = isInserting || isUpdating
 
   function onSubmit(data) {
     const image = typeof data.image === "string" ? data.image : data.image[0]
@@ -83,15 +83,6 @@ function CreateStoreForm({ itemToEdit = {}, onCloseModal }) {
         />
       </FormRow>
 
-      <FormRow label="No. of pieces" error={errors?.NoOfPcs?.message}>
-        <Input
-          type="number"
-          id="NoOfPcs"
-          disabled={isWorking}
-          {...register("NoOfPcs", { required: "This field is required" })}
-        />
-      </FormRow>
-
       <FormRow label="Regular Price" error={errors?.regularPrice?.message}>
         <Input
           type="number"
@@ -122,14 +113,14 @@ function CreateStoreForm({ itemToEdit = {}, onCloseModal }) {
           type="text"
           id="description"
           disabled={isWorking}
+          defaultValue=""
           {...register("description", {
             required: "This field is required",
           })}
-          defaultValue=""
         />
       </FormRow>
 
-      <FormRow label>
+      <FormRow label="Upload Image">
         <FileInput
           id="image"
           disabled={isWorking}
@@ -141,9 +132,8 @@ function CreateStoreForm({ itemToEdit = {}, onCloseModal }) {
       </FormRow>
 
       <FormRow>
-        {/* type is an HTML attribute! */}
         <Button
-          variation="secondary"
+          $variation="secondary"
           type="reset"
           onClick={() => onCloseModal?.()}
         >

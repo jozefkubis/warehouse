@@ -3,7 +3,6 @@ import styled from "styled-components"
 
 const StyledTable = styled.div`
   border: 1px solid var(--color-grey-200);
-
   font-size: 1.4rem;
   background-color: var(--color-grey-0);
   border-radius: 7px;
@@ -12,7 +11,7 @@ const StyledTable = styled.div`
 
 const CommonRow = styled.div`
   display: grid;
-  grid-template-columns: ${(props) => props.columns};
+  grid-template-columns: ${(props) => props.$columns};
   column-gap: 2.4rem;
   align-items: center;
   transition: none;
@@ -20,7 +19,6 @@ const CommonRow = styled.div`
 
 const StyledHeader = styled(CommonRow)`
   padding: 1.6rem 2.4rem;
-
   background-color: var(--color-grey-50);
   border-bottom: 1px solid var(--color-grey-100);
   text-transform: uppercase;
@@ -31,7 +29,6 @@ const StyledHeader = styled(CommonRow)`
 
 const StyledRow = styled(CommonRow)`
   padding: 1.2rem 2rem;
-
   &:not(:last-child) {
     border-bottom: 1px solid var(--color-grey-100);
   }
@@ -46,8 +43,6 @@ const Footer = styled.footer`
   display: flex;
   justify-content: center;
   padding: 1.2rem;
-
-  /* This will hide the footer when it contains no child elements. Possible thanks to the parent selector :has 🎉 */
   &:not(:has(*)) {
     display: none;
   }
@@ -59,31 +54,32 @@ const Empty = styled.p`
   text-align: center;
   margin: 2.4rem;
 `
+
 const TableContext = createContext()
 
 function Table({ children, columns }) {
   return (
-    <TableContext.Provider value={{ columns }}>
+    <TableContext.Provider value={{ $columns: columns }}>
       <StyledTable role="table">{children}</StyledTable>
     </TableContext.Provider>
   )
 }
 
 function Header({ children }) {
-  const { columns } = useContext(TableContext)
+  const { $columns } = useContext(TableContext)
 
   return (
-    <StyledHeader role="row" columns={columns} as="header">
+    <StyledHeader role="row" $columns={$columns} as="header">
       {children}
     </StyledHeader>
   )
 }
 
 function Row({ children }) {
-  const { columns } = useContext(TableContext)
+  const { $columns } = useContext(TableContext)
 
   return (
-    <StyledRow role="row" columns={columns}>
+    <StyledRow role="row" $columns={$columns}>
       {children}
     </StyledRow>
   )

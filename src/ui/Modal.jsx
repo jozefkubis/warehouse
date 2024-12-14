@@ -60,7 +60,6 @@ function Modal({ children }) {
 
   const close = () => setOpenName("")
   const open = (name) => setOpenName(name)
-  // const open = setOpenName
 
   return (
     <ModalContext.Provider value={{ openName, close, open }}>

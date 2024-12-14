@@ -13,23 +13,19 @@ const Div = styled.div`
 `
 
 function OrderTable() {
-  const { orders, isLoading, count } = useOrders()
-  const { settings } = useSettings()
+  const { orders, isLoading: isOrdersLoading, count } = useOrders()
+  const { settings, isLoading: isSettingsLoading, error } = useSettings()
 
-  if (isLoading) return <Spinner />
+  if (isOrdersLoading || isSettingsLoading) return <Spinner />
+
+  if (error) {
+    console.error("Failed to load settings:", error)
+    return <div>Error loading settings</div>
+  }
 
   if (!orders.length) return <Empty resourceName="orders" />
 
-  if (!settings || typeof settings.shipping === "undefined") {
-    console.error(
-      "Settings not loaded or missing 'shipping' property:",
-      settings
-    )
-    return <Spinner />
-  }
-
-  const shippingPrice = settings.shipping
-  // console.log(shippingPrice)
+  const shippingPrice = settings?.shipping ?? 0
 
   return (
     <Menus>

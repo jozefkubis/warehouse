@@ -3,22 +3,17 @@ import { format, isToday } from "date-fns"
 import {
   HiOutlineChatBubbleBottomCenterText,
   HiOutlineCurrencyDollar,
-  // HiOutlineShoppingCart,
 } from "react-icons/hi2"
-
 import DataItem from "../../ui/DataItem"
-
 import { formatDistanceFromNow, formatCurrency } from "../../utils/helpers"
 import { TbSend2 } from "react-icons/tb"
 import { useSettings } from "../settings/useSettings"
 import Spinner from "../../ui/Spinner"
 
 const StyledOrderDataBox = styled.section`
-  /* Box */
   background-color: var(--color-grey-0);
   border: 1px solid var(--color-grey-100);
   border-radius: var(--border-radius-md);
-
   overflow: hidden;
 `
 
@@ -29,13 +24,7 @@ const Header = styled.header`
   font-size: 1.8rem;
   font-weight: 500;
   display: flex;
-  /* align-items: center; */
   justify-content: space-between;
-
-  /* svg {
-    height: 3.2rem;
-    width: 3.2rem;
-  } */
 
   & div:first-child {
     display: flex;
@@ -82,11 +71,10 @@ const Price = styled.div`
   padding: 1.6rem 3.2rem;
   border-radius: var(--border-radius-sm);
   margin-top: 2.4rem;
-
   background-color: ${(props) =>
-    props.isPaid ? "var(--color-green-100)" : "var(--color-yellow-100)"};
+    props.$isPaid ? "var(--color-green-100)" : "var(--color-yellow-100)"};
   color: ${(props) =>
-    props.isPaid ? "var(--color-green-700)" : "var(--color-yellow-700)"};
+    props.$isPaid ? "var(--color-green-700)" : "var(--color-yellow-700)"};
 
   & p:last-child {
     text-transform: uppercase;
@@ -108,13 +96,10 @@ const Footer = styled.footer`
   text-align: right;
 `
 
-// A purely presentational component
 function OrderDataBox({ order }) {
   const {
-    // id,
     created_at,
     NoOfPcs,
-    // status,
     notes,
     isPaid,
     WarehouseStore: { name: ItemName, code, regularPrice, discount },
@@ -128,7 +113,7 @@ function OrderDataBox({ order }) {
       "Settings not loaded or missing 'shipping' property:",
       settings
     )
-    return <Spinner /> // Alebo iný vhodný spôsob, ako zobraziť stav načítania / chyby
+    return <Spinner />
   }
 
   const shippingPrice = settings.shipping
@@ -167,7 +152,6 @@ function OrderDataBox({ order }) {
           <p>{email}</p>
           <span>&bull;</span>
           <p>{address}</p>
-          {/* <span>&bull;</span> */}
         </Customer>
 
         {notes && (
@@ -179,7 +163,7 @@ function OrderDataBox({ order }) {
           </DataItem>
         )}
 
-        <Price isPaid={isPaid}>
+        <Price $isPaid={isPaid}>
           <DataItem icon={<HiOutlineCurrencyDollar />} label={`Total price`}>
             {formatCurrency(totalPrice)}
 

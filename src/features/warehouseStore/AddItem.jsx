@@ -17,8 +17,9 @@ function AddItem() {
   )
 }
 
+// Alternatívna implementácia pomocou stavu
 // function AddItem() {
-//   const [isOpenModal, setIsOpenModal] = useState(false)
+//   const [isOpenModal, setIsOpenModal] = useState(false);
 
 //   return (
 //     <div>
@@ -31,7 +32,7 @@ function AddItem() {
 //         </Modal>
 //       )}
 //     </div>
-//   )
+//   );
 // }
 
 export default AddItem

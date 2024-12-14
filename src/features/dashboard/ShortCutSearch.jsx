@@ -3,7 +3,6 @@ import Heading from "../../ui/Heading"
 import Row from "../../ui/Row"
 import { useGetFilteredOrders } from "./useGetFilteredOrders"
 import Button from "../../ui/Button"
-// import { filterOrders } from "../../utils/helpers";
 import Spinner from "../../ui/Spinner"
 import { useState } from "react"
 import ShortCutFn from "./ShortCutFn"
@@ -11,7 +10,6 @@ import { HiXMark } from "react-icons/hi2"
 import { useOutsideClick } from "../../hooks/useOutsideClick"
 
 const StyledSearchInput = styled.div`
-  /* Box */
   background-color: var(--color-grey-0);
   border: 1px solid var(--color-grey-100);
   border-radius: var(--border-radius-md);
@@ -77,9 +75,6 @@ const ModalButton = styled.button`
   & svg {
     width: 2.4rem;
     height: 2.4rem;
-    /* Sometimes we need both */
-    /* fill: var(--color-grey-500);
-    stroke: var(--color-grey-500); */
     color: var(--color-grey-500);
   }
 `
@@ -113,7 +108,7 @@ export default function ShortCutSearch() {
 
   return (
     <StyledSearchInput>
-      <Row type="horizontal">
+      <Row $type="horizontal">
         <Heading as="h2">Search by Customer Name or Order No.</Heading>
       </Row>
       <SearchInput
@@ -121,7 +116,7 @@ export default function ShortCutSearch() {
         value={searchingOrder}
         onChange={(e) => setSearchingOrder(e.target.value)}
       />
-      <Button size="large" variation="primary" onClick={handleSubmit}>
+      <Button $size="large" $variation="primary" onClick={handleSubmit}>
         Search
       </Button>
 

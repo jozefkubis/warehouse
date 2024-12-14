@@ -1,9 +1,7 @@
 import styled from "styled-components"
 import { format } from "date-fns"
-
 import Tag from "../../ui/Tag"
 import Table from "../../ui/Table"
-
 import { formatCurrency } from "../../utils/helpers"
 import { useNavigate } from "react-router-dom"
 import Menus from "../../ui/Menus"
@@ -17,20 +15,17 @@ import useShipped from "../check-in-out/useShipped"
 import Modal from "../../ui/Modal"
 import ConfirmDelete from "../../ui/ConfirmDelete"
 import { useDeleteOrder } from "./useDeleteOrder"
-// import { useSettings } from "../settings/useSettings"
 
 const Item = styled.div`
   font-size: 1.4rem;
   font-weight: 600;
   color: var(--color-grey-600);
-  /* font-family: "Sono"; */
   margin: 0 auto;
 `
 
 const ItemQuantity = styled.div`
   font-size: 1.2rem;
   color: var(--color-grey-600);
-  /* font-family: "Sono"; */
   margin: 0 auto;
 `
 
@@ -104,7 +99,7 @@ function OrderRow({
       <Address>{address}</Address>
       <ItemQuantity>{NoOfPcs}</ItemQuantity>
 
-      <Tag type={statusToTagName[status]}>{status.replace("-", " ")}</Tag>
+      <Tag $type={statusToTagName[status]}>{status.replace("-", " ")}</Tag>
 
       <Amount>{formatCurrency(totalPrice)}</Amount>
 

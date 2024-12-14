@@ -7,7 +7,7 @@ import {
   HiOutlineCurrencyEuro,
   HiOutlineShoppingCart,
 } from "react-icons/hi2"
-import Uploader from "../data/Uploader"
+// import Uploader from "../data/Uploader"
 
 const NavList = styled.ul`
   display: flex;
@@ -56,43 +56,40 @@ const StyledNavLink = styled(NavLink)`
 
 function MainNav() {
   return (
-    <>
-      <nav>
-        <NavList>
-          <li>
-            <StyledNavLink to="/dashboard">
-              <HiOutlineHome />
-              <span>Home</span>
-            </StyledNavLink>
-          </li>
-          <li>
-            <StyledNavLink to="/orders">
-              <HiOutlineCurrencyEuro />
-              <span>Orders</span>
-            </StyledNavLink>
-          </li>
-          <li>
-            <StyledNavLink to="/warehousestore">
-              <HiOutlineShoppingCart />
-              <span>Store</span>
-            </StyledNavLink>
-          </li>
-          <li>
-            <StyledNavLink to="/users">
-              <HiOutlineUsers />
-              <span>User</span>
-            </StyledNavLink>
-          </li>
-          <li>
-            <StyledNavLink to="/settings">
-              <HiOutlineCog6Tooth />
-              <span>Settings</span>
-            </StyledNavLink>
-          </li>
-        </NavList>
-      </nav>
-      <Uploader />
-    </>
+    <nav>
+      <NavList>
+        <li>
+          <StyledNavLink to="/dashboard">
+            <HiOutlineHome />
+            <span>Home</span>
+          </StyledNavLink>
+        </li>
+        <li>
+          <StyledNavLink to="/orders">
+            <HiOutlineCurrencyEuro />
+            <span>Orders</span>
+          </StyledNavLink>
+        </li>
+        <li>
+          <StyledNavLink to="/warehousestore">
+            <HiOutlineShoppingCart />
+            <span>Store</span>
+          </StyledNavLink>
+        </li>
+        <li>
+          <StyledNavLink to="/users">
+            <HiOutlineUsers />
+            <span>User</span>
+          </StyledNavLink>
+        </li>
+        <li>
+          <StyledNavLink to="/settings">
+            <HiOutlineCog6Tooth />
+            <span>Settings</span>
+          </StyledNavLink>
+        </li>
+      </NavList>
+    </nav>
   )
 }
 

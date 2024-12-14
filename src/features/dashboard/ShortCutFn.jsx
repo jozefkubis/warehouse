@@ -66,8 +66,8 @@ function ShortCutFn({ filteredOrders }) {
               </p>
               <p>{order.customers.fullName}</p>
               <Button
-                size="small"
-                variation={isDarkMode ? "secondary" : "primary"}
+                $size="small"
+                $variation={isDarkMode ? "secondary" : "primary"}
                 onClick={() => navigate(`/orders/${order.id}`)}
               >
                 Detail

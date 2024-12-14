@@ -37,7 +37,6 @@ function LoginForm() {
         <Input
           type="email"
           id="email"
-          // This makes this form better for password managers
           autoComplete="username"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
@@ -57,14 +56,14 @@ function LoginForm() {
       </FormRowVertical>
       <FormRowVertical>
         <Button
-          variation="secondary"
+          $variation="secondary"
           type="reset"
           disabled={isLoading}
           onClick={reset}
         >
           Cancel
         </Button>
-        <Button size="large" disabled={isLoading}>
+        <Button $size="large" disabled={isLoading}>
           {!isLoading ? "Login" : <SpinnerMini />}
         </Button>
       </FormRowVertical>

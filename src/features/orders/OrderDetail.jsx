@@ -18,7 +18,7 @@ import { HiArrowUpOnSquare } from "react-icons/hi2"
 import Modal from "../../ui/Modal"
 import ConfirmDelete from "../../ui/ConfirmDelete"
 import { useDeleteOrder } from "./useDeleteOrder"
-// import { HiOutlineShoppingCart } from "react-icons/hi2"
+// import { HiOutlineShoppingCart } from "react-icons/hi2";
 
 const HeadingGroup = styled.div`
   display: flex;
@@ -55,11 +55,11 @@ function OrderDetail() {
 
   return (
     <>
-      <Row type="horizontal">
+      <Row $type="horizontal">
         <HeadingGroup>
           {/* <HiOutlineShoppingCart /> */}
           <Heading as="h1">Order #{orderId}</Heading>
-          <Tag type={statusToTagName[status]}>{status.replace("-", " ")}</Tag>
+          <Tag $type={statusToTagName[status]}>{status.replace("-", " ")}</Tag>
         </HeadingGroup>
         <ButtonText onClick={moveBack}>&larr; Back</ButtonText>
       </Row>
@@ -85,7 +85,7 @@ function OrderDetail() {
 
         <Modal>
           <Modal.Open opens="delete">
-            <Button variation="danger">Delete order</Button>
+            <Button $variation="danger">Delete order</Button>
           </Modal.Open>
 
           <Modal.Window name="delete">
@@ -99,7 +99,7 @@ function OrderDetail() {
           </Modal.Window>
         </Modal>
 
-        <Button variation="secondary" onClick={moveBack}>
+        <Button $variation="secondary" onClick={moveBack}>
           Back
         </Button>
       </ButtonGroup>

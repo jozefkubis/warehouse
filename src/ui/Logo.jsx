@@ -9,8 +9,11 @@ const Img = styled.img`
   height: 12rem;
   width: auto;
   border-radius: 50%;
-  background-color: ${(props) =>
-    props.isDarkMode ? "var(--color-brand-500)" : "transparent"};
+  background-color: transparent;
+
+  &.dark-mode {
+    background-color: var(--color-brand-500);
+  }
 `
 
 function Logo() {
@@ -18,7 +21,11 @@ function Logo() {
 
   return (
     <StyledLogo>
-      <Img src="/logo-light.png" alt="Logo" isDarkMode={isDarkMode} />
+      <Img
+        src={isDarkMode ? "/logo-light.png" : "/logo-light.png"}
+        alt="Logo"
+        className={isDarkMode ? "dark-mode" : ""}
+      />
     </StyledLogo>
   )
 }

@@ -35,14 +35,6 @@ function WarehouseStoreTable() {
       (warehouseStore) => warehouseStore.discount === 0
     )
 
-  // // MARK: SORTING
-  // const sortBy = searchParams.get("sortBy") || "startDate-asc"
-  // const [field, direction] = sortBy.split("-")
-  // const modifier = direction === "asc" ? 1 : -1
-  // const storedItems = filteredItems.sort(
-  //   (a, b) => (a[field] - b[field]) * modifier
-  // )
-
   // MARK: SORTING
   const sortBy = searchParams.get("sortBy") || "startDate-asc"
   const [field, direction] = sortBy.split("-")
@@ -63,7 +55,6 @@ function WarehouseStoreTable() {
           <Div></Div>
           <Div>Code</Div>
           <Div>Name</Div>
-          {/* <Div>No. of pcs</Div> */}
           <Div>Price</Div>
           <Div>Discount</Div>
           <Div></Div>

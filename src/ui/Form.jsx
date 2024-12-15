@@ -8,16 +8,20 @@ const Form = styled.form`
 
       /* Box */
       background-color: var(--color-grey-0);
-      border: 1px solid var (--color-grey-100);
+      border: 1px solid var(--color-grey-100);
       border-radius: var(--border-radius-md);
+      max-width: 110rem; /* Maximálna šírka */
+      margin: 0 auto; /* Zarovnanie na stred */
+      width: 100%; /* Zabezpečenie celkovej šírky */
     `}
 
   ${(props) =>
     props.$type === "modal" &&
     css`
       width: 80rem;
+      max-width: 100%; /* Pre menšie obrazovky */
     `}
-    
+
   overflow: hidden;
   font-size: 1.4rem;
 `

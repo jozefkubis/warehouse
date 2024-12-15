@@ -1,6 +1,6 @@
 import toast from "react-hot-toast"
 import { useMutation, useQueryClient } from "@tanstack/react-query"
-import { insertEditStoreItem as insertEditStoreItemApi } from "../../services/apiWarehouseStore"
+import { insertEditStoreItem as insertEditStoreItemApi } from "../../services/apiWareHouseStore"
 
 export function useUpdateStoreItem() {
   const queryClient = useQueryClient()

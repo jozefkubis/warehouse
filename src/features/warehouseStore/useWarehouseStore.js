@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query"
-import { getWarehouseStore } from "../../services/apiWarehouseStore"
+import { getWarehouseStore } from "../../services/apiWareHouseStore"
 
 export function useWarehouseStore() {
   const {

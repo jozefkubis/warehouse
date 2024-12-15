@@ -20,8 +20,6 @@ function StoreTableOperations() {
           { value: "name-desc", label: "Sort by name (Z-A)" },
           { value: "regularPrice-asc", label: "Sort by price (low first)" },
           { value: "regularPrice-desc", label: "Sort by price (high first)" },
-          { value: "NoOfPcs-asc", label: "Sort by No. of pcs (low first)" },
-          { value: "NoOfPcs-desc", label: "Sort by No. of pcs (high first)" },
           { value: "code-asc", label: "Sort by code (low first)" },
           { value: "code-desc", label: "Sort by code (high first)" },
         ]}

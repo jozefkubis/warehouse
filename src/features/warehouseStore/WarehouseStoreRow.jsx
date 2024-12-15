@@ -8,6 +8,8 @@ import Modal from "../../ui/Modal"
 import ConfirmDelete from "../../ui/ConfirmDelete"
 import Table from "../../ui/Table"
 import Menus from "../../ui/Menus"
+import { useState } from "react"
+import ImageModal from "../../ui/ImageModal"
 
 const Img = styled.img`
   display: block;
@@ -16,14 +18,7 @@ const Img = styled.img`
   object-fit: cover;
   object-position: center;
   transform: scale(1.5) translateX(-7px);
-`
-const ModalImg = styled.img`
-  display: block;
-  width: 6.4rem;
-  aspect-ratio: 3 / 2;
-  object-fit: cover;
-  object-position: center;
-  transform: scale(12);
+  cursor: pointer;
 `
 
 const StoreItem = styled.div`
@@ -54,9 +49,25 @@ const Span = styled.span`
   margin: 0 auto;
 `
 
+// function ImageModal({ image, onClose }) {
+//   const ref = useOutsideClick(onClose)
+
+//   return (
+//     <Overlay>
+//       <StyledModal ref={ref}>
+//         <ModalButton onClick={onClose}>
+//           <HiXMark />
+//         </ModalButton>
+//         <ModalImg src={image} />
+//       </StyledModal>
+//     </Overlay>
+//   )
+// }
+
 function WarehouseStoreRow({ warehouseStore }) {
   const { isDeleting, deleteStoreItem } = useDeleteStoreItem()
   const { isInserting, insertStoreItem } = useInsertStoreItem()
+  const [isOpenModal, setIsOpenModal] = useState(false)
 
   const {
     id: itemId,
@@ -79,17 +90,19 @@ function WarehouseStoreRow({ warehouseStore }) {
     })
   }
 
+  function handleOpenModal() {
+    setIsOpenModal(true)
+  }
+
+  function handleCloseModal() {
+    setIsOpenModal(false)
+  }
+
   return (
     <Table.Row>
       <div>
-        <Modal>
-          <Modal.Open opens="image-modal">
-            <Img src={image} />
-          </Modal.Open>
-          <Modal.Window name="image-modal">
-            <ModalImg src={image} />
-          </Modal.Window>
-        </Modal>
+        <Img src={image} onClick={handleOpenModal} />
+        {isOpenModal && <ImageModal image={image} onClose={handleCloseModal} />}
       </div>
 
       <StoreItem>{code}</StoreItem>
